@@ -1,12 +1,31 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,500,700');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+
+}
+.telo-informacie {
+    font-family: 'Montserrat', sans-serif;
+}
+
+p {
+    @apply text-gray-600;
+}
+
+.container-informacie {
+    @apply mx-auto px-10 mt-10;
+}
 
 html, body {
     height: 100%;
     margin: 0;
 }
 .content {
+    display: flex;
+    justify-content: center;
     position: absolute;
     height: 100%;
     width: 100%;
@@ -16,28 +35,29 @@ html, body {
 }
 
 .login-form {
-    position: relative;
     left: 33%;
-    top: 33%;
+    margin-top: auto;
+    margin-bottom: auto;
     width: 33%;
-    height: 33%;
+    height: auto;
     padding: 20px;
     background-color: #E2F0F5;
     border-radius: 10px;
 }
 
 .register-form {
-    position: relative;
     left: 25%;
-    top: 22%;
-    width: 50%;
-    height: 55%;
-    padding: 20px 3% 20px 3%;
+    margin-top:auto;
+    margin-bottom: auto;
+    width: 40%;
+    height: auto;
+    padding-right: 5rem;
+    padding-left: 5rem;
     background-color: #E2F0F5;
     border-radius: 10px;
 }
 
-h1 {
+.nadpis h1 {
     text-align: center;
     margin: 0;
     font-family: "sans-serif", "Times New Roman";
@@ -83,6 +103,6 @@ input[type=submit]:hover {
     margin-top: 1rem;
 }
 
-@layer utilities {
 
-}
+
+
