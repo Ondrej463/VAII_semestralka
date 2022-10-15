@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Dashboard</title>
+  <meta name="author" content="name">
+  <meta name="description" content="description here">
+  <meta name="keywords" content="keywords,here">
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+  <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css"/>
+</head>
+
+<body class="flex flex-col h-screen bg-gray-800 font-sans leading-normal tracking-normal overflow-x-hidden">
+
+<header>
+  <!--Nav-->
+  <nav aria-label="menu nav" class="flex flex-row-reverse bg-gray-800 pt-2 md:pt-1 pb-1 px-1 mt-0 h-auto fixed w-full z-20 top-0">
+      <div class="flex w-full pt-2 content-center justify-between md:w-auto md:justify-end">
+        <div class="flex items-center">
+          <a href="history.html" class="history py-2 px-3"><i class="fa fa-history fa-lg text-white hover:text-gray-400"></i></a>
+          <a class="text-white hover:text-gray-400 py-2 px-2" href="profile.html"><i class="fa fa-user fa-lg"></i> Jožko Mrkvička </a>
+          <a href="../main_page/main_page.html" class="py-2 px-3">
+            <svg class="h-8 w-8 text-white hover:text-gray-400"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2" />  <path d="M7 12h14l-3 -3m0 6l3 -3" /></svg>
+          </a>
+        </div>
+      </div>
+  </nav>
+</header>
+
+
+<main class="flex flex-grow">
+  <div class="flex flex-grow flex-col md:flex-row mt-16">
+    <nav aria-label="alternative nav">
+      <div class="bg-gray-800 fixed shadow-xl h-20 bottom-0 mt-12 md:relative md:flex-grow z-10 w-full md:w-48 content-center">
+
+        <div class="md:mt-12 md:w-48 md:fixed md:left-0 md:top-0 content-center md:content-start text-left justify-between">
+          <ul class="list-reset flex flex-row md:flex-col pt-3 md:py-3 px-1 md:px-2 text-center md:text-left">
+            <li class="mr-3 flex-1">
+              <a href="#" class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-pink-500">
+                <i class="fa fa-info pr-0 md:pr-3"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-gray-400 md:text-gray-200 block md:inline-block">O tipovaní</span>
+              </a>
+            </li>
+            <li class="mr-3 flex-1">
+              <a href="#" class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-purple-500">
+                <i class="fa fa-wallet pr-0 md:pr-3"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-gray-400 md:text-gray-200 block md:inline-block">Prehľad</span>
+              </a>
+            </li>
+            <li class="mr-3 flex-1">
+              <a href="#" class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-green-500">
+                <i class="fas fa-chart-area pr-0 md:pr-3"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-white md:text-white block md:inline-block">Analytics</span>
+              </a>
+            </li>
+            <li class="mr-3 flex-1">
+              <a href="#" class="block py-1 md:py-3 pl-0 md:pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-red-500">
+                <i class="fa fa-wallet pr-0 md:pr-3"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-gray-400 md:text-gray-200 block md:inline-block">Payments</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+
+      </div>
+    </nav>
+    <section class="flex flex-grow w-auto">
+      <div id="main" class="main-content bg-gray-100 flex-1 md:mt-2 pb-24 md:pb-5">
+
+        <div class="bg-gray-800">
+          <div class="rounded-tl-3xl bg-gradient-to-r from-green-900 to-gray-800 p-4 shadow text-4xl text-white">
+            <h1 class="font-bold pl-2">Prehľad</h1>
+          </div>
+        </div>
+
+        <div class="flex-row mt-20 mx-auto overflow-x-auto w-3/6 md:w-4/6 lg:mx-14 lg:w-auto">
+            <table>
+              <thead class="h-20">
+              <tr class="bg-gray-800">
+                <th class="w-[20px] md:w-1/6 py-2 px-10 md:px-0">
+                  <span class="text-gray-300">Názov</span>
+                </th>
+                <th class="w-[20px] md:w-1/6 py-2 px-10 md:px-0">
+                  <span class="text-gray-300">Začiatok</span>
+                </th>
+                <th class="w-[20px] md:w-1/12 py-2 px-10 md:px-0">
+                  <span class="text-gray-300">Počet tipujúcich</span>
+                </th>
+                <th class="w-[20px] md:w-1/6 py-2 px-10 lg:px-0">
+                  <span class="text-gray-300">Stav</span>
+                </th>
+                <th class="w-[20px] md:w-1/12 py-2 px-10 lg:px-0">
+                  <span class="text-gray-300">Môj tip</span>
+                </th>
+                <th class="w-[20px] md:w-1/12 py-2 px-10 lg:px-0">
+                  <span class="text-gray-300">Výsledky</span>
+                </th>
+              </tr>
+              </thead>
+              <tbody class="bg-gray-200">
+              <tr class="bg-white border-4 border-gray-200">
+                <td class="py-2 text-center font-semibold px-5">
+                  9463AN Digit tipping
+                </td>
+                <td>
+                  <div class="text-center px-5">15/10/2022 15:00</div>
+                </td>
+                <td class="text-center py-2 px-5">
+                  68
+                </td>
+                <td class="text-center py-2 px-5">
+                  <div class="border-green-800 rounded-md bg-green-800 w-20 h-auto mx-auto">
+                    <div class="text-white py-1 text-center">Prebieha</div>
+                  </div>
+                </td>
+                <td class="text-center py-2 px-5">
+                  <i class="fa fa-times fa-lg text-red-600"></i>
+                </td>
+
+                <td class="text-center py-2 px-5">
+
+                </td>
+              </tr>
+              <tr class="bg-white border-4 border-gray-200">
+                <td class="py-2 font-semibold text-center px-5">
+                  4264PH Digit tipping
+                </td>
+                <td>
+                  <div class="text-center px-5">10/10/2022 10:00</div>
+                </td>
+                <td class="text-center py-2">
+                  120
+                </td>
+                <td class="py-2 px-5">
+                  <div class="border-red-800 rounded-md bg-red-800 w-20 h-auto mx-auto">
+                    <div class="text-white py-1 text-center">Ukončený</div>
+                  </div>
+                </td>
+                <td class="text-center py-2 px-5">
+                  <i class="fa fa-check fa-lg text-green-600"></i>
+                </td>
+
+                <td class="text-center py-2 px-5">
+                  <button>
+                    <i class="fa fa-info-circle fa-lg"></i>
+                  </button>
+                </td>
+              </tr>
+              <tr class="bg-white border-4 border-gray-200">
+                <td class="text-center py-2 font-semibold px-5">
+                  8945FE Digit tipping
+                </td>
+                <td>
+                  <div class="text-center px-5">15/09/2022 10:00</div>
+                </td>
+                <td class="text-center py-2 px-5">
+                  210
+                </td>
+                <td class="text-center py-2 px-5">
+                  <div class="border-red-800 rounded-md bg-red-800 w-20 h-auto mx-auto">
+                    <div class="text-white py-1 text-center">Ukončený</div>
+                  </div>
+                </td>
+                <td class="text-center py-2 px-5">
+                  <i class="fa fa-check fa-lg text-green-600"></i>
+                </td>
+
+                <td class="text-center py-2 px-5">
+                  <button>
+                    <i class="fa fa-info-circle fa-lg"></i>
+                  </button>
+                </td>
+              </tr>
+              <tr class="bg-white border-4 border-gray-200">
+                <td class="text-center py-2 font-semibold px-5">
+                  1412RA Digit tipping
+                </td>
+                <td>
+                  <div class="text-center px-5">09/09/2022 18:00</div>
+                </td>
+                <td class="text-center py-2 px-5">
+                  725
+                </td>
+                <td class="text-center py-2 px-5">
+                  <div class="border-red-800 rounded-md bg-red-800 w-20 h-auto mx-auto">
+                    <div class="text-white py-1 text-center">Ukončený</div>
+                  </div>
+                </td>
+                <td class="text-center py-2 px-5">
+                  <i class="fa fa-check fa-lg text-green-600"></i>
+                </td>
+
+                <td class="text-center py-2 px-5">
+                  <button>
+                    <i class="fa fa-info-circle fa-lg"></i>
+                  </button>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+
+</body>
+
+</html>
