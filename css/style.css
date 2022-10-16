@@ -1,22 +1,13 @@
-@import url('https://fonts.googleapis.com/css?family=Montserrat:400,500,700');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@layer utilities {
-
-}
-.telo-informacie {
-    font-family: 'Montserrat', sans-serif;
-}
-
-p {
-    @apply text-gray-600;
-}
-
-.container-informacie {
-    @apply mx-auto px-10 mt-10;
+.flex-profil {
+    display: flex;
+    flex: 1 1 0%;
+    width: auto;
+    flex-grow: 1;
+    flex-direction: column;
 }
 
 html, body {
@@ -53,6 +44,7 @@ html, body {
     height: auto;
     padding-right: 5rem;
     padding-left: 5rem;
+    padding-bottom: 2rem;
     background-color: #E2F0F5;
     border-radius: 10px;
 }
