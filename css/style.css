@@ -25,27 +25,30 @@ html, body {
     background-size: cover;
 }
 
+.login-link {
+    color: white;
+    margin: 10px 0 10px 0;
+    display: block;
+}
+
 .login-form {
-    left: 33%;
+    justify-content: center;
     margin-top: auto;
     margin-bottom: auto;
-    width: 33%;
     height: auto;
     padding: 20px;
-    background-color: #E2F0F5;
+    background-color: black;
     border-radius: 10px;
+    width: 33%;
 }
 
 .register-form {
-    left: 25%;
+    justify-content: center;
     margin-top:auto;
     margin-bottom: auto;
     width: 40%;
-    height: auto;
-    padding-right: 5rem;
-    padding-left: 5rem;
-    padding-bottom: 2rem;
-    background-color: #E2F0F5;
+    padding: 2rem 5rem 2rem 5rem;
+    background-color: black;
     border-radius: 10px;
 }
 
@@ -53,8 +56,11 @@ html, body {
     text-align: center;
     margin: 0;
     font-family: "sans-serif", "Times New Roman";
+    color: white;
 }
-
+.name {
+    margin-top: 15px;
+}
 .userInput {
     padding: 12px;
     width: 100%;
@@ -75,26 +81,51 @@ input[type=submit] {
 input[type=submit]:hover {
     background-color: #ccc;
 }
+label {
+    color: white;
+}
 
 .flex-container {
     margin-top: 1rem;
     display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 
 .firstCol {
-    margin-right: 5px;
+    margin-right: 2rem;
     width: 50%;
 }
 
 .secondCol {
     width: 50%;
-    margin-left: 5px;
+    margin-left: 2rem;
 }
 
 .down {
     margin-top: 1rem;
 }
 
-
+@media only screen and (max-width: 600px) {
+    .login-form {
+        width: 70%;
+    }
+    .content {
+        background-color: #E2F0F5;
+        background-image: none;
+    }
+    .flex-container {
+        flex-direction: column;
+        margin-top: 2rem;
+    }
+    .firstCol {
+        width: 100%;
+        margin: 0;
+    }
+    .secondCol {
+        width: 100%;
+        margin: 0;
+    }
+}
 
 
