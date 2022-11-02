@@ -14,6 +14,7 @@ html, body {
     height: 100%;
     margin: 0;
 }
+
 .content {
     display: flex;
     justify-content: center;
@@ -44,7 +45,7 @@ html, body {
 
 .register-form {
     justify-content: center;
-    margin-top:auto;
+    margin-top: auto;
     margin-bottom: auto;
     width: 40%;
     padding: 2rem 5rem 2rem 5rem;
@@ -58,9 +59,11 @@ html, body {
     font-family: "sans-serif", "Times New Roman";
     color: white;
 }
+
 .name {
     margin-top: 15px;
 }
+
 .userInput {
     padding: 12px;
     width: 100%;
@@ -81,6 +84,7 @@ input[type=submit] {
 input[type=submit]:hover {
     background-color: #ccc;
 }
+
 label {
     color: white;
 }
@@ -110,18 +114,22 @@ label {
     .login-form {
         width: 70%;
     }
+
     .content {
         background-color: #E2F0F5;
         background-image: none;
     }
+
     .flex-container {
         flex-direction: column;
         margin-top: 2rem;
     }
+
     .firstCol {
         width: 100%;
         margin: 0;
     }
+
     .secondCol {
         width: 100%;
         margin: 0;
