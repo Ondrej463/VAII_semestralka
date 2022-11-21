@@ -116,30 +116,28 @@
               <small class="errorMessage" th:text="${endErrorMessage}"></small>
             </div>
             <label for="numbers" class="form-label inline-block mb-2 text-gray-700">Vygenerované čísla</label>
-            <div class="formControl">
-              <div id="numbers" class="w-full flex">
-                <input type="text" th:field="*{first_number}" maxlength="1" id="prveCislo" class="flex-initial w-9 px-3 py-1.5 text-gray-700
+            <div class="formControl w-full flex" id="numbers">
+              <input type="text" th:field="*{first_number}" maxlength="1" id="prveCislo" class="flex-initial w-9 px-3 py-1.5 text-gray-700
                     bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out mr-5
                       focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none">
-                <input type="text" th:field="*{second_number}" maxlength="1" id="druheCislo" class="flex-initial w-9 px-3 py-1.5 text-gray-700
+              <input type="text" th:field="*{second_number}" maxlength="1" id="druheCislo" class="flex-initial w-9 px-3 py-1.5 text-gray-700
                     bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out mr-5
                       focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none">
-                <input type="text" th:field="*{third_number}" maxlength="1" id="tretieCislo" class="flex-initial w-9 px-3 py-1.5 text-gray-700
+              <input type="text" th:field="*{third_number}" maxlength="1" id="tretieCislo" class="flex-initial w-9 px-3 py-1.5 text-gray-700
                     bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out mr-5
                       focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none">
-                <input type="text" th:field="*{fourth_number}" maxlength="1" id="stvrteCislo" class="flex-initial w-9 px-3 py-1.5 text-gray-700
+              <input type="text" th:field="*{fourth_number}" maxlength="1" id="stvrteCislo" class="flex-initial w-9 px-3 py-1.5 text-gray-700
                     bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out mr-5
                       focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none">
-                <input type="text" th:field="*{fifth_number}" maxlength="1" id="piateCislo" class="flex-initial w-9 px-3 py-1.5 text-gray-700
+              <input type="text" th:field="*{fifth_number}" maxlength="1" id="piateCislo" class="flex-initial w-9 px-3 py-1.5 text-gray-700
                     bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out mr-5
                       focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none">
-                <small class="errorMessage" th:text="${numbersErrorMessage}"></small>
-                <button type="submit" onclick="return generuj();" class="px-6 py-2.5 ml-16 bg-gray-500 text-white font-medium text-xs leading-tight
+              <small class="errorMessage" th:text="${numbersErrorMessage}"></small>
+              <button type="submit" onclick="return generuj();" class="px-6 py-2.5 ml-16 bg-gray-500 text-white font-medium text-xs leading-tight
                   uppercase rounded shadow-md hover:bg-gray-400 hover:shadow-lg focus:bg-gray-700 focus:shadow-lg
                     focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out">
-                  Generuj náhodne
-                </button>
-              </div>
+                Generuj náhodne
+              </button>
             </div>
             <button type="submit" th:text="${buttonText}" class="px-6 py-2.5 bg-green-800 text-white font-medium text-xs leading-tight uppercase
                 rounded shadow-md hover:bg-green-700 hover:shadow-lg focus:bg-green-700 focus:shadow-lg focus:outline-none focus:ring-0
