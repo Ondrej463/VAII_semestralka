@@ -5,16 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="shortcut icon" href="../img/favicon.png" type="image/png">
+    <link rel="shortcut icon" href="img/favicon.png" type="image/png">
 
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Prehľad</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
 <body class="flex flex-col h-screen bg-gray-800 font-sans leading-normal tracking-normal overflow-x-hidden">
-
 <header>
     <!--Nav-->
     <nav aria-label="menu nav"
@@ -23,9 +23,11 @@
             <div class="flex items-center">
                 <a href="history.html" class="history py-2 px-3"><i
                         class="fa fa-history fa-lg text-white hover:text-gray-400"></i></a>
-                <a class="text-white hover:text-gray-400 py-2 px-2" href="profile.html"><i class="fa fa-user fa-lg"></i>
-                    Jožko Mrkvička </a>
-                <a href="login.html" class="py-2 px-3">
+                <a class="text-white hover:text-gray-400 py-2 px-2" href="profile"><i class="fa fa-user fa-lg"></i>
+                    <div class="inline-block" th:text="${firstName}"></div>
+                    <div class="inline-block" th:text="${lastName}" ></div>
+                </a>
+                <a href="../X-Tipping" class="py-2 px-3">
                     <svg class="h-8 w-8 text-white hover:text-gray-400" width="24" height="24" viewBox="0 0 24 24"
                          stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
                          stroke-linejoin="round">
@@ -46,7 +48,7 @@
             <div class="bottom-0 md:mt-16 w-full md:w-48 fixed md:left-0 md:top-0 content-center md:content-start text-left justify-between bg-gray-800 h-20 md:flex-grow md:relative">
                 <ul class="list-reset flex flex-row md:flex-col pt-3 md:py-3 px-1 md:px-2 text-center md:text-left">
                     <li class="mr-3 flex-1">
-                        <a href="informations.html"
+                        <a href="informacie"
                            class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-pink-500">
                             <i class="fa fa-info pr-0 md:pr-3"></i><span
                                 class="pb-1 md:pb-0 text-xs md:text-base text-gray-400 md:text-gray-200 block md:inline-block">O tipovaní</span>
@@ -60,7 +62,7 @@
                         </a>
                     </li>
                     <li class="mr-3 flex-1">
-                        <a href="prehlad.html"
+                        <a href="prehlad"
                            class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-green-500">
                             <i class="fas fa-chart-area pr-0 md:pr-3"></i><span
                                 class="pb-1 md:pb-0 text-xs md:text-base text-white md:text-white block md:inline-block">Prehľad</span>
@@ -85,7 +87,16 @@
                     </div>
                 </div>
 
-                <div class="over flex-row mt-20 mx-auto overflow-x-auto w-[300px] sm:w-[400px] md:w-[500px] lg:mx-14 lg:w-auto">
+                <div class="over flex-row mt-20 mx-auto overflow-x-auto w-[300px] sm:w-[400px] md:w-[500px] lg:mx-14 lg:w-auto border p-5 bg-gray-300">
+                    <div class="my-5 flex justify-end">
+                        <form th:action="@{/novy}" th:if="${jeAdmin}">
+                            <button type="submit" class="px-6 py-2.5 bg-red-800 text-white font-medium text-xs leading-tight
+                            uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg
+                                focus:outline-none focus:ring-0 active:bg-red-700 active:shadow-lg transition duration-150 ease-in-out">
+                                Nový
+                            </button>
+                        </form>
+                    </div>
                     <table>
                         <thead class="h-20">
                         <tr class="bg-gray-800">
@@ -105,24 +116,21 @@
                                 <span class="text-gray-300">Môj tip</span>
                             </th>
                             <th class="lg:w-1/12 py-2 px-10 lg:px-0">
-                                <span class="text-gray-300">Výsledky</span>
+                                <span class="text-gray-300">Akcie</span>
                             </th>
                         </tr>
                         </thead>
-                        <tbody class="bg-gray-200">
+                        <!-- tipping -->
+                        <tbody th:each="tipping : ${tippings}" class="bg-gray-200">
                         <tr class="bg-white border-4 border-gray-200">
-                            <td class="py-2 text-center font-semibold px-2">
-                                9463AN Digit tipping
-                            </td>
-                            <td class="py-2 text-center px-2">
-                                15/10/2022 15:00
-                            </td>
+                            <td th:text="${tipping.name}" class="py-2 text-center font-semibold px-2"></td>
+                            <td th:text="${tipping.beggining}" class="py-2 text-center px-2"></td>
                             <td class="text-center py-2">
                                 68
                             </td>
                             <td class="text-center py-2 px-2">
-                                <div class="border-green-800 rounded-md bg-green-800 w-20 h-auto mx-auto">
-                                    <div class="text-white py-1 text-center">Prebieha</div>
+                                <div th:class="'border-green-800 rounded-md bg-' + ${prehladBean.getColor(tipping)} + '-800 w-20 h-auto mx-auto'">
+                                    <div class="text-white py-1 text-center" th:text="${prehladBean.getPopisStavu(tipping)}"></div>
                                 </div>
                             </td>
                             <td class="text-center py-2 px-2">
@@ -130,82 +138,18 @@
                             </td>
 
                             <td class="text-center py-2 px-2">
-
-                            </td>
-                        </tr>
-                        <tr class="bg-white border-4 border-gray-200">
-                            <td class="py-2 font-semibold text-center px-2">
-                                4264PH Digit tipping
-                            </td>
-                            <td>
-                                <div class="text-center px-2">10/10/2022 10:00</div>
-                            </td>
-                            <td class="text-center py-2 px-2">
-                                120
-                            </td>
-                            <td class="py-2 px-2">
-                                <div class="border-red-800 rounded-md bg-red-800 w-20 h-auto mx-auto">
-                                    <div class="text-white py-1 text-center">Ukončený</div>
-                                </div>
-                            </td>
-                            <td class="text-center py-2 px-2">
-                                <i class="fa fa-check fa-lg text-green-600"></i>
-                            </td>
-
-                            <td class="text-center py-2 px-2">
-                                <button>
+                                <a th:href="@{/tipuj(paName=${tipping.name}, paBeggining=${tipping.beggining}, paEnd=${tipping.end})}" class="px-[2px]">
+                                    <i class="fa fa-external-link fa-lg"></i>
+                                </a>
+                                <a href="#" class="px-[2px]">
                                     <i class="fa fa-info-circle fa-lg"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr class="bg-white border-4 border-gray-200">
-                            <td class="text-center py-2 font-semibold px-2">
-                                8945FE Digit tipping
-                            </td>
-                            <td class="text-center px-2 py-2">
-                                15/09/2022 10:00
-                            </td>
-                            <td class="text-center py-2 px-2">
-                                210
-                            </td>
-                            <td class="text-center py-2 px-2">
-                                <div class="border-red-800 rounded-md bg-red-800 w-20 h-auto mx-auto">
-                                    <div class="text-white py-1 text-center">Ukončený</div>
-                                </div>
-                            </td>
-                            <td class="text-center py-2 px-2">
-                                <i class="fa fa-check fa-lg text-green-600"></i>
-                            </td>
-
-                            <td class="text-center py-2 px-2">
-                                <button>
-                                    <i class="fa fa-info-circle fa-lg"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr class="bg-white border-4 border-gray-200">
-                            <td class="text-center py-2 font-semibold px-2">
-                                1412RA Digit tipping
-                            </td>
-                            <td class="text-center px-2 py-2">
-                                09/09/2022 18:00
-                            </td>
-                            <td class="text-center py-2 px-2">
-                                725
-                            </td>
-                            <td class="text-center py-2 px-2">
-                                <div class="border-red-800 rounded-md bg-red-800 w-20 h-auto mx-auto">
-                                    <div class="text-white py-1 text-center">Ukončený</div>
-                                </div>
-                            </td>
-                            <td class="text-center py-2 px-2">
-                                <i class="fa fa-check fa-lg text-green-600"></i>
-                            </td>
-
-                            <td class="text-center py-2 px-2">
-                                <button>
-                                    <i class="fa fa-info-circle fa-lg"></i>
-                                </button>
+                                </a>
+                               <a th:href="@{/edit(paName=${tipping.name})}" th:if="${jeAdmin}" class="px-[2px]">
+                                   <i class="fa fa-pencil fa-lg"></i>
+                               </a>
+                                <a th:href="@{/delete(paName=${tipping.name})}" th:if="${jeAdmin}" class="px-[2px]">
+                                    <i class="fa fa-trash fa-lg text-red-700"></i>
+                                </a>
                             </td>
                         </tr>
                         </tbody>

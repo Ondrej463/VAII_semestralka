@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="img/favicon.png" type="image/png">
+    <title>Register</title>
+    <link rel="stylesheet" th:href="@{css/style.css}">
+    <script th:src="@{js/script.js}"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+</head>
+<body>
+<div class="content">
+    <div class="register-form">
+        <div class="nadpis">
+            <h1>Register</h1>
+        </div>
+        <form action="#" th:action="@{/register}" th:object="${user}" method="post" id="registerForm">
+            <div class="flex-container">
+                <div class="firstCol">
+                    <div th:class="'formControl ' + ${nameResult}">
+                        <label for="name">First name</label>
+                        <input th:field="*{first_name}" type="text" id="name" class="userInput" placeholder="Enter your first name">
+                        <i class="fas fa-check-circle check"></i>
+                        <i class="fas fa-exclamation-circle cross"></i>
+                        <small class="errorMessage" th:text="${nameErrorMessage}"></small>
+                    </div>
+                    <div th:class="'formControl ' + ${lastNameResult}">
+                        <label for="lastName">Last name</label>
+                        <input th:field="*{last_name}" type="text" id="lastName" class="userInput" placeholder="Enter your last name">
+                        <i class="fas fa-check-circle check"></i>
+                        <i class="fas fa-exclamation-circle cross"></i>
+                        <small class="errorMessage" th:text="${lastNameErrorMessage}"></small>
+                    </div>
+                </div>
+                <div class="secondCol">
+                    <div th:class="'formControl ' + ${addressResult}">
+                        <label for="address">Address</label>
+                        <input th:field="*{adress}" type="text" id="address" class="userInput" placeholder="Enter your address">
+                        <i class="fas fa-check-circle check"></i>
+                        <i class="fas fa-exclamation-circle cross"></i>
+                        <small class="errorMessage" th:text="${addressErrorMessage}"></small>
+                    </div>
+                    <div th:class="'formControl ' + ${birthResult}">
+                        <label for="birthDate">Birth date</label>
+                        <input th:field="*{born_date}" type="date" id="birthDate" class="userInput">
+                        <i class="fas fa-check-circle check"></i>
+                        <small class="errorMessage" th:text="${birthDateErrorMessage}"></small>
+                    </div>
+                </div>
+            </div>
+            <div th:class="'formControl ' + ${emailResult}">
+                <label for="email">Email address</label>
+                <input th:field="*{email}" type="text" id="email" class="userInput" placeholder="Enter your email address">
+                <i class="fas fa-check-circle check"></i>
+                <i class="fas fa-exclamation-circle cross"></i>
+                <small class="errorMessage" th:text="${emailErrorMessage}"></small>
+            </div>
+            <div th:class="'formControl ' + ${passwordResult}">
+                <label for="password">Password</label>
+                <input th:field="*{passwd}"  type="password" id="password" class="userInput" placeholder="Enter your password">
+                <i class="fas fa-check-circle check"></i>
+                <i class="fas fa-exclamation-circle cross"></i>
+                <small class="errorMessage" th:text="${passwordErrorMessage}"></small>
+            </div>
+           <div th:class="'formControl ' + ${repeatPasswordResult}">
+               <label for="repeatPassword">Repeat password</label>
+               <input th:name="repeatPassword" type="password" id="repeatPassword" class="userInput" placeholder="Repeat your password">
+               <i class="fas fa-check-circle check"></i>
+               <i class="fas fa-exclamation-circle cross"></i>
+               <small class="errorMessage" th:text="${repeatPasswordErrorMessage}"></small>
+           </div>
+
+            <input type="submit" class="tlacidlo down" value="Save">
+        </form>
+    </div>
+</div>
+</body>
+</html>

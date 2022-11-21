@@ -1,8 +1,8 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-    content: [
-        './menu/*.{html,js}'
-    ],
+    mode: process.env.NODE_ENV ? 'jit' : undefined,
+    purge: ["./src/main/resources/**/*.html", "./src/**/*.js"],
+    darkMode: false,
     theme: {
         extend: {
             width: {

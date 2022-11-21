@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="img/favicon.png" type="image/png">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+    <title>Tipping</title>
+    <link rel="stylesheet" th:href="@{css/style.css}">
+    <script th:src="@{js/script.js}"></script>
+</head>
+<body>
+<div class="content">
+    <div class="login-form">
+        <div class="nadpis">
+            <h1>Login</h1>
+        </div>
+        <form action="#" th:action="@{/}" method="post" id="loginForm">
+            <div class="name">
+                <div th:class="'formControl ' + ${emailResult}">
+                    <label for="email">Email</label>
+                    <input th:name="email" type="text" id="email" class="userInput" placeholder="Enter your email..">
+                    <i class="fas fa-check-circle check"></i>
+                    <i class="fas fa-exclamation-circle cross"></i>
+                    <small class="errorMessage" th:text="${emailErrorMessage}"></small>
+                </div>
+            </div>
+            <div class="password">
+                <div th:class="'formControl ' + ${passwordResult}">
+                    <label for="passwd">Password</label>
+                    <input th:name="password" type="password" id="passwd" class="userInput" placeholder="Enter your password..">
+                    <i class="fas fa-check-circle check"></i>
+                    <i class="fas fa-exclamation-circle cross"></i>
+                    <small class="errorMessage" th:text="${passwordErrorMessage}"></small>
+                </div>
+            </div>
+            <input type="submit" value="Sign in" class="tlacidlo">
+            <a class="login-link" href="registracia">Register</a>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

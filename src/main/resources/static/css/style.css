@@ -1,6 +1,3 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
 .flex-profil {
     display: flex;
@@ -68,17 +65,61 @@ html, body {
     padding: 12px;
     width: 100%;
     border-radius: 4px;
-    border: 1px solid #BBBFC0;
-    margin-bottom: 1rem;
+    border: 3px solid #BBBFC0;
     box-sizing: border-box;
 }
 
-input[type=submit] {
+.errorMessage {
+    color: red;
+    margin: 0;
+    padding: 0;
+}
+
+.formControl {
+    margin-bottom: 5px;
+    padding-bottom: 20px;
+    position: relative;
+}
+
+.formControl i {
+    visibility: hidden;
+    position: absolute;
+    top: 33px;
+    right: 10px;
+}
+
+.formControl.success input[type="date"]::-webkit-inner-spin-button,
+.formControl.success input[type="date"]::-webkit-calendar-picker-indicator {
+    display: none;
+    -webkit-appearance: none;
+}
+
+.formControl.success input {
+    border-color: #2ecc71;
+}
+.formControl.success i.fa-check-circle {
+    color: #2ecc71;
+    visibility: visible;
+}
+.formControl.error input {
+    border-color: #e74c3c;
+}
+.formControl.error i.fa-exclamation-circle {
+    color: #e74c3c;
+    visibility: visible;
+}
+.formControl small {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+.tlacidlo {
     background-color: #eee;
     padding: 10px 20px;
     border-radius: 4px;
     display: block;
     margin-bottom: 0.5rem;
+    display: block;
 }
 
 input[type=submit]:hover {
@@ -87,6 +128,7 @@ input[type=submit]:hover {
 
 label {
     color: white;
+    display: inline-block;
 }
 
 .flex-container {
