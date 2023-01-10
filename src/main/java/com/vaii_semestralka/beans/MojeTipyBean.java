@@ -1,7 +1,6 @@
 package com.vaii_semestralka.beans;
 
 import com.vaii_semestralka.LoggedInUser;
-import com.vaii_semestralka.tip.TipPrimaryKeys;
 import com.vaii_semestralka.tipping_all.StavUdalosti;
 import com.vaii_semestralka.tipping_all.TippingAllEntity;
 import com.vaii_semestralka.tipping_all.TippingAllService;

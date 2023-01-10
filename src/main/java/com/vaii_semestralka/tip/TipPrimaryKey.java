@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Embeddable
-public class TipPrimaryKeys implements Serializable {
+public class TipPrimaryKey implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "event", referencedColumnName = "name")
     @Getter
@@ -19,12 +19,12 @@ public class TipPrimaryKeys implements Serializable {
     @Getter
     private UserEntity userEntity;
 
-    public TipPrimaryKeys(TippingAllEntity tippingAllEntity, UserEntity userEntity) {
+    public TipPrimaryKey(TippingAllEntity tippingAllEntity, UserEntity userEntity) {
         this.tippingAllEntity = tippingAllEntity;
         this.userEntity = userEntity;
     }
 
-    public TipPrimaryKeys() {
+    public TipPrimaryKey() {
 
     }
 
@@ -32,7 +32,7 @@ public class TipPrimaryKeys implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        TipPrimaryKeys accountId = (TipPrimaryKeys) o;
+        TipPrimaryKey accountId = (TipPrimaryKey) o;
         return this.userEntity.getEmail().equals(accountId.userEntity.getEmail()) &&
                 this.tippingAllEntity.getName().equals(accountId.tippingAllEntity.getName());
     }

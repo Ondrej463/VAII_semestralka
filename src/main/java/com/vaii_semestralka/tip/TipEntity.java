@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Table(name = "vyplnene_tipy")
 public class TipEntity implements Serializable {
     @EmbeddedId
-    @Getter @Setter private TipPrimaryKeys tipPrimaryKeys;
+    @Getter @Setter private TipPrimaryKey tipPrimaryKeys;
     @Column(name="input_time")
     private LocalDateTime when;
     @Getter @Setter private int first_number;
