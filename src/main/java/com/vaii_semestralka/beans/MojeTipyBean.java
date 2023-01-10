@@ -1,23 +1,23 @@
 package com.vaii_semestralka.beans;
 
 import com.vaii_semestralka.LoggedInUser;
+import com.vaii_semestralka.tip.TipPrimaryKeys;
 import com.vaii_semestralka.tipping_all.StavUdalosti;
 import com.vaii_semestralka.tipping_all.TippingAllEntity;
 import com.vaii_semestralka.tipping_all.TippingAllService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import java.util.List;
 
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Configuration
-public class PrehladBean {
-    @Autowired private TippingAllService service;
-    public List<TippingAllEntity> getTippings() {
-        return service.findAllInOrder();
-    }
+public class MojeTipyBean {
+    @Autowired private TippingAllService tippingAllService;
 
-    public void delete(String name) {
-        this.service.deleteViaId(name);
+    public List<TippingAllEntity> getAllUserTippings() {
+        return LoggedInUser.getActualUser().getTips().stream()
+                .map(tipEntity -> tipEntity.getTipPrimaryKeys().getTippingAllEntity()).collect(Collectors.toList());
     }
 
     public String getColor(TippingAllEntity tippingAllEntity) {
@@ -34,13 +34,8 @@ public class PrehladBean {
     public String getPopisStavu(TippingAllEntity tippingAllEntity) {
         return tippingAllEntity.getStavUdalosti().getStav();
     }
-    public String getMojTip(TippingAllEntity tippingAllEntity) {
-        return LoggedInUser.getActualUser().hasTipInEvent(tippingAllEntity.getName()) ? "fa fa-check text-green" : "fa fa-times text-red";
-    }
 
     public int getNumberOfTips(String nameOfEvent) {
-        return service.findById(nameOfEvent).getTips().size();
+        return tippingAllService.findById(nameOfEvent).getTips().size();
     }
 }
-
-

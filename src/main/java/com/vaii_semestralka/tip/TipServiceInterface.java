@@ -1,5 +1,7 @@
 package com.vaii_semestralka.tip;
 
+import com.vaii_semestralka.tipping_all.TippingAllEntity;
+
 import java.util.List;
 
 public interface TipServiceInterface {
@@ -7,4 +9,5 @@ public interface TipServiceInterface {
     Iterable<TipEntity> getAll();
     void save(TipEntity tipEntity);
     void delete(TipEntity tipEntity);
+
 }

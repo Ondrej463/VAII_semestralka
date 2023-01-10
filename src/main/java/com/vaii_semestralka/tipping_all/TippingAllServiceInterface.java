@@ -9,4 +9,5 @@ public interface TippingAllServiceInterface {
     TippingAllEntity findById(String name);
 
     void deleteViaId(String name);
+    List<TippingAllEntity> findAllInOrder();
 }

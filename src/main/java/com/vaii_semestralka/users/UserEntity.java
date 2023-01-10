@@ -1,13 +1,13 @@
 package com.vaii_semestralka.users;
 
+import com.vaii_semestralka.LoggedInUser;
 import com.vaii_semestralka.converter.DateTimeConverter;
 import com.vaii_semestralka.tip.TipEntity;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "users")
@@ -21,8 +21,12 @@ public class UserEntity {
     @Getter @Setter private String adress;
     @Getter @Setter private int credit;
 
-    @OneToMany(mappedBy = "tipPrimaryKeys.userEntity", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @Getter @Setter private Set<TipEntity> tips;
+    @OneToMany(mappedBy = "tipPrimaryKeys.userEntity", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @Getter private List<TipEntity> tips;
+
+    public UserEntity() {
+        this.tips = new ArrayList<>();
+    }
 
     public String getBorn_date() {
         return this.born_date == null ? null : DateTimeConverter.formatDate(this.born_date);
@@ -36,5 +40,21 @@ public class UserEntity {
         } else {
             return Role.USER;
         }
+    }
+    public String getName() {
+        return this.first_name + " " + this.getLast_name();
+    }
+
+    public void addTip(TipEntity tipEntity) {
+        tips.add(tipEntity);
+    }
+    public void delTip(TipEntity tipEntity) {
+        tips.removeIf(tipEntity1 -> tipEntity1.getTipPrimaryKeys().getTippingAllEntity().getName()
+                .equals(tipEntity.getTipPrimaryKeys().getTippingAllEntity().getName()));
+    }
+    public boolean hasTipInEvent(String nameOfEvent) {
+        Optional<TipEntity> tip =  tips.stream()
+                .filter(tipEntity -> tipEntity.getTipPrimaryKeys().getTippingAllEntity().getName().equals(nameOfEvent)).findFirst();
+        return tip.isPresent();
     }
 }

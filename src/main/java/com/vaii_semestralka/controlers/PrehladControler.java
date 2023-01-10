@@ -55,13 +55,9 @@ public class PrehladControler {
     public String tip(
             @ModelAttribute() TippingAllEntity tippingAllEntity,
             @RequestParam(name = "paName", required = false) String name,
-            @RequestParam(name = "paBeggining", required = false) String beggining,
-            @RequestParam(name = "paEnd", required = false) String end,
             RedirectAttributes redirectAttributes
     ) {
         redirectAttributes.addFlashAttribute("paName", name);
-        redirectAttributes.addFlashAttribute("paBeggining", beggining);
-        redirectAttributes.addFlashAttribute("paEnd", end);
         return "redirect:/tip";
     }
 }

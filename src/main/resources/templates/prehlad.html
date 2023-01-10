@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -21,7 +22,7 @@
          class="flex flex-row-reverse bg-gray-800 pt-2 md:pt-1 pb-1 px-1 mt-0 h-auto fixed w-full z-20 top-0">
         <div class="flex w-full pt-2 content-center justify-between md:w-auto md:justify-end">
             <div class="flex items-center">
-                <a href="history.html" class="history py-2 px-3"><i
+                <a href="mojeTipy" class="history py-2 px-3"><i
                         class="fa fa-history fa-lg text-white hover:text-gray-400"></i></a>
                 <a class="text-white hover:text-gray-400 py-2 px-2" href="profile"><i class="fa fa-user fa-lg"></i>
                     <div class="inline-block" th:text="${firstName}"></div>
@@ -40,8 +41,6 @@
         </div>
     </nav>
 </header>
-
-
 <main class="flex flex-grow">
     <div class="flex flex-grow flex-col md:flex-row mt-16">
         <nav aria-label="alternative nav">
@@ -124,21 +123,19 @@
                         <tbody th:each="tipping : ${tippings}" class="bg-gray-200">
                         <tr class="bg-white border-4 border-gray-200">
                             <td th:text="${tipping.name}" class="py-2 text-center font-semibold px-2"></td>
-                            <td th:text="${tipping.beggining}" class="py-2 text-center px-2"></td>
-                            <td class="text-center py-2">
-                                68
-                            </td>
+                            <td th:text="${tipping.getBegginingScreenFormat()}" class="py-2 text-center px-2"></td>
+                            <td th:text="${prehladBean.getNumberOfTips(tipping.name)}" class="text-center py-2"></td>
                             <td class="text-center py-2 px-2">
                                 <div th:class="'border-green-800 rounded-md bg-' + ${prehladBean.getColor(tipping)} + '-800 w-20 h-auto mx-auto'">
                                     <div class="text-white py-1 text-center" th:text="${prehladBean.getPopisStavu(tipping)}"></div>
                                 </div>
                             </td>
                             <td class="text-center py-2 px-2">
-                                <i class="fa fa-times fa-lg text-red-600"></i>
+                                <i th:class="${prehladBean.getMojTip(tipping)} + '-600 fa-lg'"></i>
                             </td>
 
                             <td class="text-center py-2 px-2">
-                                <a th:href="@{/tipuj(paName=${tipping.name}, paBeggining=${tipping.beggining}, paEnd=${tipping.end})}" class="px-[2px]">
+                                <a th:href="@{/tipuj(paName=${tipping.name})}" class="px-[2px]">
                                     <i class="fa fa-external-link fa-lg"></i>
                                 </a>
                                 <a href="#" class="px-[2px]">

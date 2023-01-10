@@ -24,8 +24,8 @@ public class TippingAllEntity implements Serializable {
     @Getter @Setter private int fourth_number;
     @Getter @Setter private int fifth_number;
 
-     @OneToMany(mappedBy = "tipPrimaryKeys.tippingAllEntity", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-     @Getter @Setter private Set<TipEntity> tips;
+     @OneToMany(mappedBy = "tipPrimaryKeys.tippingAllEntity", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+     @Getter private Set<TipEntity> tips;
     public String getBeggining() {
         return this.beggining == null ? null : DateTimeConverter.formatDateTime(this.beggining);
     }
@@ -50,6 +50,13 @@ public class TippingAllEntity implements Serializable {
         } else {
             return StavUdalosti.NEZACAL;
         }
+    }
+    public String getBegginingScreenFormat() {
+        return this.beggining == null ? null : DateTimeConverter.getScreenFormat(this.beggining);
+    }
+
+    public String getEndScreenFormat() {
+        return this.end == null ? null : DateTimeConverter.getScreenFormat(this.end);
     }
 }
 

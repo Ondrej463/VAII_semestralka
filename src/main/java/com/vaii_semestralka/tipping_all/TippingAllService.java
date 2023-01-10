@@ -30,4 +30,9 @@ public class TippingAllService implements TippingAllServiceInterface {
     public void deleteViaId(String name) {
         tippingAllRepository.deleteById(name);
     }
+
+    @Override
+    public List<TippingAllEntity> findAllInOrder() {
+        return tippingAllRepository.findAllInOrder();
+    }
 }
