@@ -1,4 +1,4 @@
-package com.vaii_semestralka.vyhra;
+package com.vaii_semestralka.koeficienty;
 import com.vaii_semestralka.tipping_all.TippingAllEntity;
 import lombok.Getter;
 import javax.persistence.Embeddable;
@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Embeddable
-public class VyhraPrimaryKey implements Serializable {
+public class KoeficientPrimaryKey implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "event", referencedColumnName = "name")
     @Getter
@@ -18,12 +18,12 @@ public class VyhraPrimaryKey implements Serializable {
     @Getter
     private int od_;
 
-    public VyhraPrimaryKey(TippingAllEntity tippingAllEntity, int od) {
+    public KoeficientPrimaryKey(TippingAllEntity tippingAllEntity, int od) {
         this.tippingAllEntity = tippingAllEntity;
         this.od_= od;
     }
 
-    public VyhraPrimaryKey() {
+    public KoeficientPrimaryKey() {
 
     }
 
@@ -31,7 +31,7 @@ public class VyhraPrimaryKey implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        VyhraPrimaryKey accountId = (VyhraPrimaryKey) o;
+        KoeficientPrimaryKey accountId = (KoeficientPrimaryKey) o;
         return this.od_ == accountId.od_ &&
                 this.tippingAllEntity.getName().equals(accountId.tippingAllEntity.getName());
     }

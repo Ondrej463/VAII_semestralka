@@ -1,4 +1,4 @@
-package com.vaii_semestralka.vyhra;
+package com.vaii_semestralka.koeficienty;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -2,7 +2,7 @@ package com.vaii_semestralka.controlers;
 import com.vaii_semestralka.beans.Session;
 import com.vaii_semestralka.beans.SpravcaPodujatiBean;
 import com.vaii_semestralka.tipping_all.TippingAllEntity;
-import com.vaii_semestralka.vyhra.Koeficient;
+import com.vaii_semestralka.koeficienty.Koeficient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

@@ -1,7 +1,7 @@
 package com.vaii_semestralka.beans;
 import com.vaii_semestralka.tipping_all.TippingAllEntity;
 import com.vaii_semestralka.tipping_all.TippingAllService;
-import com.vaii_semestralka.vyhra.*;
+import com.vaii_semestralka.koeficienty.*;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -12,7 +12,7 @@ import java.util.List;
 @Configuration
 public class SpravcaPodujatiBean {
     @Autowired private TippingAllService tippingAllService;
-    @Autowired private VyhraService vyhraService;
+    @Autowired private KoeficientService koeficientService;
     @Getter private String koefErrorMessage;
     @Getter private Operacia operacia;
     @Getter private TippingAllEntity tipping;
@@ -21,15 +21,15 @@ public class SpravcaPodujatiBean {
     public void save(TippingAllEntity tippingAllEntity) {
         if (this.operacia == Operacia.EDIT) {
             tippingAllEntity.setName(this.tipping.getName());
-            this.vyhraService.deleteAllByName(tippingAllEntity.getName());
+            this.koeficientService.deleteAllByName(tippingAllEntity.getName());
         }
         this.tippingAllService.save(tippingAllEntity);
         List<Koeficient> koeficients = this.koeficientList.getKoeficients();
         for (int i = 0; i < koeficients.size(); i++) {
-            VyhraPrimaryKey vyhraPrimaryKey = new VyhraPrimaryKey(tippingAllEntity, koeficients.get(i).getOd_());
-            VyhraEntity vyhraEntity = new VyhraEntity(vyhraPrimaryKey,
+            KoeficientPrimaryKey koeficientPrimaryKey = new KoeficientPrimaryKey(tippingAllEntity, koeficients.get(i).getOd_());
+            KoeficientEntity koeficientEntity = new KoeficientEntity(koeficientPrimaryKey,
                     koeficients.get(i).getDo_(), koeficients.get(i).getKoef());
-            this.vyhraService.save(vyhraEntity);
+            this.koeficientService.save(koeficientEntity);
         }
     }
     public String getButtonText() {
@@ -47,10 +47,10 @@ public class SpravcaPodujatiBean {
                 this.koeficientList = new KoeficientList();
                 this.operacia = Operacia.EDIT;
                 this.tipping = tippingAllService.findById(model.getAttribute("name").toString());
-                List<VyhraEntity> koefs = this.vyhraService.findAllKoefsInOrder(this.tipping.getName());
-                for (VyhraEntity vyhraEntity : koefs) {
-                    this.koeficientList.addKoeficient(new Koeficient(vyhraEntity.getVyhraPrimaryKey().getOd_(),
-                            vyhraEntity.getDo_(), vyhraEntity.getKoef_()));
+                List<KoeficientEntity> koefs = this.koeficientService.findAllKoefsInOrder(this.tipping.getName());
+                for (KoeficientEntity koeficientEntity : koefs) {
+                    this.koeficientList.addKoeficient(new Koeficient(koeficientEntity.getKoeficientPrimaryKey().getOd_(),
+                            koeficientEntity.getDo_(), koeficientEntity.getKoef_()));
                 }
             }
         }
