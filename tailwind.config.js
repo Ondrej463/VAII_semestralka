@@ -3,6 +3,7 @@ module.exports = {
     mode: process.env.NODE_ENV ? 'jit' : undefined,
     purge: ["./src/main/resources/**/*.html", "./src/**/*.js"],
     darkMode: false,
+    content: ["./src/**/*.{html,js}"],
     theme: {
         extend: {
             width: {

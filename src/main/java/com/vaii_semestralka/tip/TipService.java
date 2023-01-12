@@ -10,8 +10,7 @@ public class TipService implements TipServiceInterface {
 
     @Override
     public TipEntity findById(TipPrimaryKey tipPrimaryKeys) {
-        Optional<TipEntity> optional = repository.findById(tipPrimaryKeys);
-        return optional.orElse(null);
+        return repository.findById(tipPrimaryKeys).orElse(null);
     }
 
     @Override

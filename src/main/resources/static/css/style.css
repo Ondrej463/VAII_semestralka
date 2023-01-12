@@ -81,6 +81,9 @@ html, body {
     position: relative;
 }
 
+.formControl .spracaPodujatiI {
+    top:43px;
+}
 .formControl i {
     visibility: hidden;
     position: absolute;

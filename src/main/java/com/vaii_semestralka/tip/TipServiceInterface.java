@@ -5,5 +5,4 @@ public interface TipServiceInterface {
     Iterable<TipEntity> getAll();
     void save(TipEntity tipEntity);
     void delete(TipEntity tipEntity);
-
 }

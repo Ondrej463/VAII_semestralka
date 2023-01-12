@@ -2,6 +2,8 @@ package com.vaii_semestralka.tipping_all;
 
 import com.vaii_semestralka.converter.DateTimeConverter;
 import com.vaii_semestralka.tip.TipEntity;
+import com.vaii_semestralka.vyhra.KoeficientList;
+import com.vaii_semestralka.vyhra.VyhraEntity;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -26,6 +28,9 @@ public class TippingAllEntity implements Serializable {
 
      @OneToMany(mappedBy = "tipPrimaryKeys.tippingAllEntity", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
      @Getter private Set<TipEntity> tips;
+
+    @OneToMany(mappedBy = "vyhraPrimaryKey.tippingAllEntity", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @Getter private Set<VyhraEntity> koefs;
     public String getBeggining() {
         return this.beggining == null ? null : DateTimeConverter.formatDateTime(this.beggining);
     }
