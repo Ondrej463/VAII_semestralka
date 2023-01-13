@@ -15,6 +15,7 @@
   <link rel="stylesheet" th:href="@{css/style.css}">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
   <script src="../static/js/script.js"></script>
+  <link rel="stylesheet" href="../static/css/style.css">
 </head>
 <body class="flex flex-col h-screen bg-gray-800 font-sans leading-normal tracking-normal overflow-x-hidden">
 <header>
@@ -140,33 +141,35 @@
         </div>
         <div class="block p-6 rounded-lg shadow-lg bg-white w-2/3 mx-auto mt-16">
           <form method="post" th:action="@{/save}" th:object="${tipping}" id="spravcaPodujatiForm">
-            <div th:class="'formControl ' + ${nazovClass}">
+            <div class="formControl">
               <label for="name" class="form-label inline-block mb-2 text-gray-700">Meno podujatia</label>
               <input th:disabled="${bean.disableNazov()}" type="text" th:field="*{name}" class="form-control block  w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding
                   border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                      id="name" aria-describedby="emailHelp" placeholder="Enter name of the event">
               <i class="fas fa-exclamation-circle cross spracaPodujatiI"></i>
-              <small class="errorMessage" th:text="${nazovErrorMessage}"></small>
+              <small class="errorMessage"></small>
             </div>
-            <div class="formControl">
-              <label for="selectDruh" class="form-label inline-block mb-2 text-gray-700">Druh</label>
-              <select th:disabled="${bean.disableDruh()}" th:field="*{druh}" id="selectDruh" class="form-select appearance-none block w-1/3 px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat
+            <div class="w-1/3">
+              <div class="formControl">
+                <label for="selectDruh" class="form-label inline-block mb-2 text-gray-700">Druh</label>
+                <select th:disabled="${bean.disableDruh()}" th:field="*{druh}" id="selectDruh" class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat
                                border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                      aria-label="Default select example">
-                <option value="hlaska" selected>Vyberte druh</option>
-                <option th:each="druh_ : ${druhy}" th:value="${druh_}" th:text="${druh_.nazov}" th:selected="${bean.isSelected(druh_)}"></option>
-              </select>
-              <i class="fas fa-exclamation-circle cross spracaPodujatiI"></i>
-              <small class="errorMessage" id="koniecErrorMessage"></small>
+                        aria-label="Default select example">
+                  <option value="hlaska" selected>Vyberte druh</option>
+                  <option th:each="druh_ : ${druhy}" th:value="${druh_}" th:text="${druh_.nazov}" th:selected="${bean.isSelected(druh_)}"></option>
+                </select>
+                <i class="fas fa-exclamation-circle cross spracaPodujatiI"></i>
+                <small class="errorMessage" id="koniecErrorMessage"></small>
+              </div>
             </div>
             <div class="hidden" id="datumy">
               <div class=" mb-2">
-                <div th:class="'formControl ' + ${zaciatokClass}">
+                <div class="formControl">
                   <label for="beggining" class="form-label inline-block mb-2 text-gray-700">Začiatok</label>
                   <input th:disabled="${bean.disableZaciatok()}" type="datetime-local" th:field="*{beggining}" class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding
                 border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                          id="beggining">
-                  <small class="errorMessage" th:text="${zaciatokErrorMessage}"></small>
+                  <small class="errorMessage"></small>
                 </div>
               </div>
               <div class="formControl">

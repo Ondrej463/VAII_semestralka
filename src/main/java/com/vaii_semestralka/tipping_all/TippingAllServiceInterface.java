@@ -8,6 +8,6 @@ public interface TippingAllServiceInterface {
 
     TippingAllEntity findById(String name);
 
-    void deleteViaId(String name);
+    void delete(String name);
     List<TippingAllEntity> findAllInOrder();
 }

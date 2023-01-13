@@ -72,5 +72,8 @@ public class TippingAllEntity implements Serializable {
     public LocalDateTime getBegginingDateTime() {
         return this.beggining;
     }
+    public void setBegginingDateTime(LocalDateTime date) {
+        this.beggining = date;
+    }
 }
 

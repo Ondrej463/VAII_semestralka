@@ -254,19 +254,21 @@ function removeKoeficient() {
 
 function otvorModalOkno() {
     setTimeout(function() {
-        var modal = document.getElementById("modal");
+        let modal = document.getElementById("modal");
         modal.style.display = "block";
         document.getElementById("main_content").classList.add("blur");
     }, 20);
 }
 
 function zavriOknoCheck(event) {
+    let modal = document.getElementById("modal");
     if (!modal.contains(event.target)) {
         if (modal.style.display === "block") {
             zavriOkno();
         }
     }
 }
+
 function zrusOkno() {
     let content = document.getElementById("koeficientForm");
     var ods = document.getElementById("koeficientForm").querySelectorAll('input[type="text"]');

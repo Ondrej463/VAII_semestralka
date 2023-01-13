@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.ui.Model;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -21,12 +22,6 @@ public class SpravcaPodujatiBean {
     @Autowired private TippingAllService tippingAllService;
     @Autowired private KoeficientService koeficientService;
     @Autowired private DruhService druhService;
-
-    @Getter private String nazovErrorMessage;
-    @Getter private String nazovClass;
-
-    @Getter private String zaciatokErrorMessage;
-    @Getter private String zaciatokClass;
 
     @Getter private String koefErrorMessage;
     @Getter private Operacia operacia;
@@ -38,6 +33,16 @@ public class SpravcaPodujatiBean {
     public void save(TippingAllEntity tippingAllEntity) {
         if (this.operacia == Operacia.EDIT) {
             tippingAllEntity.setName(this.tipping.getName());
+            if (disableZaciatok()) {
+                tippingAllEntity.setBegginingDateTime(this.tipping.getBegginingDateTime());
+            }
+            if (disableCisla()) {
+                tippingAllEntity.setFirst_number(this.tipping.getFirst_number());
+                tippingAllEntity.setSecond_number(this.tipping.getSecond_number());
+                tippingAllEntity.setThird_number(this.tipping.getThird_number());
+                tippingAllEntity.setFourth_number(this.tipping.getFourth_number());
+                tippingAllEntity.setFifth_number(this.tipping.getFifth_number());
+            }
             this.koeficientService.deleteAllByName(tippingAllEntity.getName());
         }
         tippingAllEntity.setDruh(this.druh);
@@ -49,8 +54,6 @@ public class SpravcaPodujatiBean {
                     koeficient.getDo_(), koeficient.getKoef());
             this.koeficientService.save(koeficientEntity);
         }
-        this.nazovClass = "";
-        this.zaciatokClass = "";
     }
     public String getButtonText() {
         return this.operacia == Operacia.EDIT ? "Upraviť" : "Vytvoriť";
@@ -98,41 +101,33 @@ public class SpravcaPodujatiBean {
     public DruhEntity getDruhEntity(String druhNazov) {
         return this.druhService.findById(druhNazov);
     }
-    public boolean validateTipping(String nazov, String zaciatok) {
-        boolean vysledok = true;
+    public List<String> validateTipping(String nazov, String zaciatok) {
+        List<String> data = new ArrayList<>();
         if (this.operacia == Operacia.NEW) {
             TippingAllEntity entity = this.tippingAllService.findById(nazov);
             if (entity != null) {
-                this.nazovErrorMessage = "Podujatie s názvom " + nazov + " už existuje!";
-                this.nazovClass = "error";
-                vysledok = false;
+                 data.add("Podujatie s názvom " + nazov + " už existuje!");
             } else {
-                this.nazovErrorMessage = "";
-                this.nazovClass = "success";
+                data.add("");
             }
             LocalDateTime date = LocalDateTime.now();
             if (DateTimeConverter.parseDateTimeT(zaciatok).isBefore(date)) {
-                this.zaciatokErrorMessage = "Dátum začiatku musí byť väčší ako súčasný!";
-                this.zaciatokClass = "error";
-                vysledok = false;
+                data.add("Dátum začiatku musí byť väčší ako súčasný!");
             } else {
-                this.zaciatokErrorMessage = "";
-                this.zaciatokClass = "success";
+                data.add("");
             }
         } else {
+            data.add("");
             LocalDateTime date = LocalDateTime.now();
             LocalDateTime zaciatokDate = DateTimeConverter.parseDateTimeT(zaciatok);
             LocalDateTime zaciatokTip = this.tipping.getBegginingDateTime();
             if (!zaciatokTip.isEqual(zaciatokDate) && DateTimeConverter.parseDateTimeT(zaciatok).isBefore(date)) {
-                this.zaciatokErrorMessage = "Dátum začiatku musí byť väčší ako súčasný!";
-                this.zaciatokClass = "error";
-                vysledok = false;
+                data.add("Dátum začiatku musí byť väčší ako súčasný!");
             } else {
-                this.zaciatokErrorMessage = "";
-                this.zaciatokClass = "success";
+                data.add("");
             }
         }
-        return vysledok;
+        return data;
     }
 
     public boolean isSelected(DruhEntity druh) {

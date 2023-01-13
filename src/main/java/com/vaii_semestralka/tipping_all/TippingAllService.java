@@ -27,8 +27,8 @@ public class TippingAllService implements TippingAllServiceInterface {
     }
 
     @Override
-    public void deleteViaId(String name) {
-        tippingAllRepository.deleteById(name);
+    public void delete(String name) {
+        tippingAllRepository.deleteByName(name);
     }
 
     @Override

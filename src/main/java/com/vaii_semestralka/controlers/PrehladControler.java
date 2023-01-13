@@ -9,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
+
 @Controller
 public class PrehladControler {
     @Autowired private PrehladBean prehladBean;
@@ -43,14 +45,11 @@ public class PrehladControler {
         return "redirect:/spravcaPodujati";
     }
 
-    @RequestMapping("/delete")
-    public String delete(
-            @ModelAttribute TippingAllEntity tippingAllEntity,
-            @RequestParam(name = "paName", required = false) String name
-    ) {
-        prehladBean.delete(name);
-        return "redirect:/prehlad";
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    public @ResponseBody RestReponse delete(@RequestBody String nazov) {
+        return new RestReponse(RestReponse.OK, prehladBean.delete(nazov));
     }
+
     @RequestMapping("/tipuj")
     public String tip(
             @ModelAttribute() TippingAllEntity tippingAllEntity,

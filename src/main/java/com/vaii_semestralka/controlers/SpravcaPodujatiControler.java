@@ -36,10 +36,6 @@ public class SpravcaPodujatiControler {
         model.addAttribute("koeficients", spravcaPodujatiBean.getKoeficientList().getKoeficients());
         model.addAttribute("druhy", spravcaPodujatiBean.getDruhy());
         model.addAttribute("bean", this.spravcaPodujatiBean);
-        model.addAttribute("nazovErrorMessage", this.spravcaPodujatiBean.getNazovErrorMessage());
-        model.addAttribute("nazovClass", this.spravcaPodujatiBean.getNazovClass());
-        model.addAttribute("zaciatokErrorMessage", this.spravcaPodujatiBean.getZaciatokErrorMessage());
-        model.addAttribute("zaciatokClass", this.spravcaPodujatiBean.getZaciatokClass());
         return "spravca_podujati";
     }
     @PostMapping("/save")
@@ -103,12 +99,7 @@ public class SpravcaPodujatiControler {
     }
     @RequestMapping(value="/validate", method = RequestMethod.POST)
     public @ResponseBody RestReponse validate(@RequestBody List<String> data) {
-        if (this.spravcaPodujatiBean.validateTipping(data.get(0), data.get(1))) {
-            return new RestReponse(RestReponse.OK, List.of("", ""));
-        };
-        List<String> response = new ArrayList<>();
-        response.add(this.spravcaPodujatiBean.getNazovErrorMessage());
-        response.add(this.spravcaPodujatiBean.getZaciatokErrorMessage());
+        List<String> response = this.spravcaPodujatiBean.validateTipping(data.get(0), data.get(1));
         return new RestReponse(RestReponse.OK, response);
     }
 }
