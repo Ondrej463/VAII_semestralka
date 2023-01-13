@@ -27,10 +27,10 @@ public class KoeficientList {
 
     public String zvalidujKoeficienty() {
         if (this.koeficients.isEmpty()) {
-            return "Koeficienty nesmú byť nevyplnené!";
+            return "Koeficienty nie sú špecifikované!";
         }
         if (this.koeficients.get(0).getOd_() != 1) {
-            return "Poradie musí začínať od 1!";
+            return "Poradie koeficientov musí začínať od 1!";
         }
 
         for (int i = 0; i < this.koeficients.size() - 1; i++) {
@@ -45,7 +45,7 @@ public class KoeficientList {
             }
         }
         if (this.koeficients.get(this.koeficients.size() - 1).getDo_() != 0) {
-            return "Posledný koeficient musí mať hodnotu prázdnu = nekonečno!";
+            return "Posledná hodnota \"poradie do\" musí mať hodnotu prázdnu = nekonečno!";
         }
         return "";
     }

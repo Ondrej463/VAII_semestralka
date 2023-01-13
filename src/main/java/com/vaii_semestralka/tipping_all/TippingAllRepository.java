@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface TippingAllRepository extends JpaRepository<TippingAllEntity, String> {
 
-    @Query(value="SELECT * from tipping_all t ORDER BY t.end DESC", nativeQuery = true)
+    @Query(value="SELECT * from tipping_all t ORDER BY t.beggining", nativeQuery = true)
     List<TippingAllEntity> findAllInOrder();
 }

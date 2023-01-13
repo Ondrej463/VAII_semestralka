@@ -97,14 +97,14 @@ html, body {
     -webkit-appearance: none;
 }
 
-.formControl.success input {
+.formControl.success input, .formControl.success select {
     border-color: #2ecc71;
 }
 .formControl.success i.fa-check-circle {
     color: #2ecc71;
     visibility: visible;
 }
-.formControl.error input {
+.formControl.error input, .formControl.error select {
     border-color: #e74c3c;
 }
 .formControl.error i.fa-exclamation-circle {
@@ -122,7 +122,6 @@ html, body {
     border-radius: 4px;
     display: block;
     margin-bottom: 0.5rem;
-    display: block;
 }
 
 input[type=submit]:hover {

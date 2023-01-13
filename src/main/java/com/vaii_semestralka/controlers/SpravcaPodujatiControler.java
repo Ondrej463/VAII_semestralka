@@ -1,13 +1,17 @@
 package com.vaii_semestralka.controlers;
 import com.vaii_semestralka.beans.Session;
 import com.vaii_semestralka.beans.SpravcaPodujatiBean;
+import com.vaii_semestralka.druh.DruhDatum;
+import com.vaii_semestralka.druh.DruhEntity;
 import com.vaii_semestralka.tipping_all.TippingAllEntity;
 import com.vaii_semestralka.koeficienty.Koeficient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -22,17 +26,25 @@ public class SpravcaPodujatiControler {
             return "redirect:/";
         }
         spravcaPodujatiBean.init(model);
-        model.addAttribute("tipping",spravcaPodujatiBean.getTipping());
+        if (!model.containsAttribute("tipping")) {
+            model.addAttribute("tipping",spravcaPodujatiBean.getTipping());
+        }
         model.addAttribute("firstName", session.getUserFirstName());
         model.addAttribute("lastName", session.getUserLastName());
         model.addAttribute("buttonText", spravcaPodujatiBean.getButtonText());
-        model.addAttribute("jeNovy", spravcaPodujatiBean.jeNovy());
         model.addAttribute("suKoeficienty", spravcaPodujatiBean.suKoeficienty());
         model.addAttribute("koeficients", spravcaPodujatiBean.getKoeficientList().getKoeficients());
+        model.addAttribute("druhy", spravcaPodujatiBean.getDruhy());
+        model.addAttribute("bean", this.spravcaPodujatiBean);
+        model.addAttribute("nazovErrorMessage", this.spravcaPodujatiBean.getNazovErrorMessage());
+        model.addAttribute("nazovClass", this.spravcaPodujatiBean.getNazovClass());
+        model.addAttribute("zaciatokErrorMessage", this.spravcaPodujatiBean.getZaciatokErrorMessage());
+        model.addAttribute("zaciatokClass", this.spravcaPodujatiBean.getZaciatokClass());
         return "spravca_podujati";
     }
     @PostMapping("/save")
     public String save(
+            RedirectAttributes redirectAttributes,
             @ModelAttribute TippingAllEntity tippingAllEntity
     ) {
         spravcaPodujatiBean.save(tippingAllEntity);
@@ -56,7 +68,11 @@ public class SpravcaPodujatiControler {
     }
     @RequestMapping(value = "/getKoeficients", method = RequestMethod.GET)
     public @ResponseBody RestReponse getKoeficients() {
-        return new RestReponse(RestReponse.OK, this.spravcaPodujatiBean.getKoeficientList().getKoeficients());
+        String status = "allow";
+        if (this.spravcaPodujatiBean.disableKoeficienty()) {
+            status = "disable";
+        }
+        return new RestReponse(status, this.spravcaPodujatiBean.getKoeficientList().getKoeficients());
     }
     @RequestMapping(value = "/removeKoeficient", method = RequestMethod.POST)
     public @ResponseBody RestReponse removeKoeficient() {
@@ -70,4 +86,29 @@ public class SpravcaPodujatiControler {
         return new RestReponse(RestReponse.OK);
     }
 
+    @RequestMapping(value = "/getDatumy", method = RequestMethod.POST)
+    public @ResponseBody RestReponse getDatumy(@RequestBody String druhNazov) {
+        List<String> data = new ArrayList<>();
+        DruhEntity druh = this.spravcaPodujatiBean.getDruhEntity(druhNazov);
+        data.add(DruhDatum.getDateFromDruhDatum(druh.getZaciatok()));
+        data.add(DruhDatum.getDateFromDruhDatum(druh.getKoniec()));
+        data.add(druh.getPocet_cislic() + "");
+        return new RestReponse(RestReponse.OK, data);
+    }
+
+    @RequestMapping(value = "/setDruh", method = RequestMethod.POST)
+    public @ResponseBody RestReponse setDruh(@RequestBody String druhNazov) {
+        this.spravcaPodujatiBean.setDruh(druhNazov);
+        return new RestReponse(RestReponse.OK);
+    }
+    @RequestMapping(value="/validate", method = RequestMethod.POST)
+    public @ResponseBody RestReponse validate(@RequestBody List<String> data) {
+        if (this.spravcaPodujatiBean.validateTipping(data.get(0), data.get(1))) {
+            return new RestReponse(RestReponse.OK, List.of("", ""));
+        };
+        List<String> response = new ArrayList<>();
+        response.add(this.spravcaPodujatiBean.getNazovErrorMessage());
+        response.add(this.spravcaPodujatiBean.getZaciatokErrorMessage());
+        return new RestReponse(RestReponse.OK, response);
+    }
 }

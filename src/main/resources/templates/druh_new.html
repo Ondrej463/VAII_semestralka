@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="img/favicon.png" type="image/png">
+
+  <title>Správca podujatí</title>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script th:src="@{js/script.js}"></script>
+  <link rel="stylesheet" th:href="@{css/tailwind.style.build.css}">
+  <link rel="stylesheet" th:href="@{css/style.css}">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="../static/css/style.css">
+</head>
+<body class="flex flex-col h-screen bg-gray-800 font-sans leading-normal tracking-normal overflow-x-hidden">
+<header>
+  <!--Nav-->
+  <nav aria-label="menu nav"
+       class="flex flex-row-reverse bg-gray-800 pt-2 md:pt-1 pb-1 px-1 mt-0 h-auto fixed w-full z-20 top-0">
+    <div class="flex pt-2 content-center justify-between w-auto justify-end">
+      <div class="flex items-center">
+        <a href="history" class="history py-2 px-3"><i
+                class="fa fa-history fa-lg text-white hover:text-gray-400"></i></a>
+        <a class="text-white hover:text-gray-400 py-2 px-2" href="profile">
+          <i class="fa fa-user fa-lg"></i>
+          <div class="inline-block" th:text="${firstName}"></div>
+          <div class="inline-block" th:text="${lastName}"></div>
+        </a>
+        <a href="#" th:href="@{/logout}" class="py-2 px-3">
+          <svg class="h-8 w-8 text-white hover:text-gray-400" width="24" height="24" viewBox="0 0 24 24"
+               stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+               stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z"/>
+            <path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2"/>
+            <path d="M7 12h14l-3 -3m0 6l3 -3"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<main class="flex flex-grow" id="main_content">
+  <div class="flex flex-grow flex-col md:flex-row mt-16">
+    <nav aria-label="alternative nav">
+      <div class="bottom-0 md:mt-16 w-full md:w-48 fixed md:left-0 md:top-0 content-center md:content-start text-left justify-between bg-gray-800 h-20 md:flex-grow md:relative z-10">
+        <ul class="list-reset flex flex-row md:flex-col pt-3 md:py-3 px-1 md:px-2 text-center md:text-left">
+          <li class="mr-3 flex-1">
+            <a href="informacie"
+               class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-pink-500">
+              <i class="fa fa-info pr-0 md:pr-3"></i><span
+                    class="pb-1 md:pb-0 text-xs md:text-base text-gray-400 md:text-gray-200 block md:inline-block">O tipovaní</span>
+            </a>
+          </li>
+          <li class="mr-3 flex-1">
+            <a href="#"
+               class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-purple-500">
+              <i class="fa fa-wallet pr-0 md:pr-3"></i><span
+                    class="pb-1 md:pb-0 text-xs md:text-base text-gray-400 md:text-gray-200 block md:inline-block">Tipuj</span>
+            </a>
+          </li>
+          <li class="mr-3 flex-1">
+            <a href="prehlad"
+               class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-green-500">
+              <i class="fas fa-chart-area pr-0 md:pr-3"></i><span
+                    class="pb-1 md:pb-0 text-xs md:text-base text-white md:text-white block md:inline-block">Prehľad</span>
+            </a>
+          </li>
+          <li class="mr-3 flex-1">
+            <a href="#"
+               class="block py-1 md:py-3 pl-0 md:pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-red-500">
+              <i class="fa fa-wallet pr-0 md:pr-3"></i><span
+                    class="pb-1 md:pb-0 text-xs md:text-base text-gray-400 md:text-gray-200 block md:inline-block">Správca podujatí</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <section class="flex w-full">
+      <div id="main" class="main-content bg-blue-100 flex-1 md:mt-2 pb-24 md:pb-5">
+        <div class="bg-gray-800">
+          <div class="rounded-tl-3xl bg-gradient-to-r from-green-900 to-gray-800 p-4 shadow text-4xl text-white">
+            <h1 class="font-bold pl-2">Nový druh</h1>
+          </div>
+        </div>
+        <div class="block p-6 rounded-lg shadow-lg bg-white w-2/3 mx-auto mt-32">
+          <div class="w-2/3 mx-auto">
+            <form method="post" th:action="@{/saveDruh}" th:object="${newDruh}" id="newDruhForm">
+              <div th:class="'formControl ' + ${nazovClass}">
+                <label for="name" class="form-label inline-block mb-2 text-gray-700">Názov</label>
+                <input type="text" th:field="*{nazov}" class="form-control block  w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding
+                  border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                       id="name" aria-describedby="emailHelp" placeholder="Enter name">
+                <i class="fas fa-exclamation-circle cross spracaPodujatiI"></i>
+                <small class="errorMessage" th:text="${nazovErrorMessage}" id="nazovErrorMessage"></small>
+              </div>
+              <div class="flex justify-between">
+                <div class=" w-1/2 inline-block">
+                  <div class="formControl">
+                    <label for="zaciatok" class="form-label inline-block mb-2 text-gray-700">Začiatok</label>
+                    <select th:field="*{zaciatok}" class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-gray-500 bg-white bg-clip-padding bg-no-repeat
+                               border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                            aria-label="Default select example" id="zaciatok">
+                      <option th:each="zaciatok : ${zaciatokOptions}" th:value="${zaciatok}" th:text="${zaciatok}"></option>
+                    </select>
+                    <i class="fas fa-exclamation-circle cross spracaPodujatiI"></i>
+                    <small class="errorMessage" id="zaciatokErrorMessage"></small>
+                  </div>
+                </div>
+                <div class="w-1/3">
+                  <div class="formControl">
+                    <label for="pocetCislic" class="form-label inline-block mb-2 text-gray-700">Počet číslic</label>
+                    <input type="text" th:field="*{pocet_cislic}" class="form-control block  w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding
+                  border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                           id="pocetCislic" aria-describedby="emailHelp" placeholder="Enter number">
+                    <i class="fas fa-exclamation-circle cross spracaPodujatiI"></i>
+                    <small class="errorMessage" id="pocetCislicErrorMessage"></small>
+                  </div>
+                </div>
+              </div>
+              <div class="flex justify-between">
+                <div class="flex-initial w-1/2 inline-block">
+                  <div class="formControl">
+                    <label for="koniec" class="form-label inline-block mb-2 text-gray-700">Koniec</label>
+                    <select th:field="*{koniec}" class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-gray-500 bg-white bg-clip-padding bg-no-repeat
+                               border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                            aria-label="Default select example" id="koniec">
+                      <option th:each="koniec : ${koniecOptions}" th:value="${koniec}" th:text="${koniec}"></option>
+                    </select>
+                    <i class="fas fa-exclamation-circle cross spracaPodujatiI"></i>
+                    <small class="errorMessage" id="koniecErrorMessage"></small>
+                  </div>
+                </div>
+                <div class="w-1/3">
+                  <div class="formControl">
+                    <label for="minPocetTipov" class="form-label inline-block mb-2 text-gray-700">Min počet tipov</label>
+                    <input type="text" th:field="*{min_pocet_tipov}" class="form-control block px-3 w-full py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding
+                  border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                           id="minPocetTipov" aria-describedby="emailHelp" placeholder="Enter number">
+                    <i class="fas fa-exclamation-circle cross spracaPodujatiI"></i>
+                    <small class="errorMessage" id="minPocetTipovErrorMessage"></small>
+                  </div>
+                </div>
+              </div>
+              <button type="submit" class="mt-6 px-6 py-2.5 bg-green-800 text-white font-medium text-xs leading-tight uppercase
+                rounded shadow-md hover:bg-green-700 hover:shadow-lg focus:bg-green-700 focus:shadow-lg focus:outline-none focus:ring-0
+                  active:bg-green-800 active:shadow-lg transition duration-150 ease-in-out">Ulož</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+</body>
+</html>

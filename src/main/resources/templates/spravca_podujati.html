@@ -14,6 +14,7 @@
   <link rel="stylesheet" th:href="@{css/tailwind.style.build.css}">
   <link rel="stylesheet" th:href="@{css/style.css}">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  <script src="../static/js/script.js"></script>
 </head>
 <body class="flex flex-col h-screen bg-gray-800 font-sans leading-normal tracking-normal overflow-x-hidden">
 <header>
@@ -61,7 +62,7 @@
 
           </div>
         <small class="errorMessage koefErrorMessage block mb-4"></small>
-        <button type="button" onclick="addKoeficient()"
+        <button type="button" onclick="addKoeficient()" id="pridajButton"
                 class="inline-block px-7 py-2.5 mr-2 bg-yellow-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-yellow-700 hover:shadow-lg focus:bg-yellow-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-yellow-800 active:shadow-lg transition duration-150 ease-in-out"
                 data-bs-dismiss="modal">
           <i class="fa fa-plus"></i> Pridaj
@@ -75,14 +76,18 @@
       </div>
 
       <div class="modal-footer flex flex-shrink-0 flex-wrap items-center justify-end p-4 border-t border-gray-200 rounded-b-md">
-        <button type="button" onclick="zrusOkno()"
+        <button type="button" onclick="zrusOkno()" id="zrusButton"
                 class="inline-block px-6 py-2.5 bg-red-700 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-800 hover:shadow-lg focus:bg-red-800 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
                 data-bs-dismiss="modal">
           Zruš
         </button>
-        <button type="button" onclick="submitKoeficientForm()"
+        <button type="button" onclick="submitKoeficientForm()" id="ulozButton"
                 class="inline-block px-6 py-2.5 bg-green-700 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-green-800 hover:shadow-lg focus:bg-green-800 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-800 active:shadow-lg transition duration-150 ease-in-out ml-1">
           Ulož
+        </button>
+        <button type="button" onclick="zavriOkno()" id="okButton"
+                class="hidden inline-block px-6 py-2.5 bg-green-700 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-green-800 hover:shadow-lg focus:bg-green-800 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-800 active:shadow-lg transition duration-150 ease-in-out ml-1">
+          Ok
         </button>
       </div>
     </div>
@@ -135,29 +140,44 @@
         </div>
         <div class="block p-6 rounded-lg shadow-lg bg-white w-2/3 mx-auto mt-16">
           <form method="post" th:action="@{/save}" th:object="${tipping}" id="spravcaPodujatiForm">
-            <div class="formControl" th:if="${jeNovy}">
+            <div th:class="'formControl ' + ${nazovClass}">
               <label for="name" class="form-label inline-block mb-2 text-gray-700">Meno podujatia</label>
-              <input type="text" th:field="*{name}" class="form-control block  w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding
+              <input th:disabled="${bean.disableNazov()}" type="text" th:field="*{name}" class="form-control block  w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding
                   border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                      id="name" aria-describedby="emailHelp" placeholder="Enter name of the event">
               <i class="fas fa-exclamation-circle cross spracaPodujatiI"></i>
-              <small class="errorMessage" th:text="${nameErrorMessage}"></small>
+              <small class="errorMessage" th:text="${nazovErrorMessage}"></small>
             </div>
             <div class="formControl">
-              <label for="begginingOfTournament" class="form-label inline-block mb-2 text-gray-700">Začiatok</label>
-              <input type="datetime-local" th:field="*{beggining}" class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding
+              <label for="selectDruh" class="form-label inline-block mb-2 text-gray-700">Druh</label>
+              <select th:disabled="${bean.disableDruh()}" th:field="*{druh}" id="selectDruh" class="form-select appearance-none block w-1/3 px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat
+                               border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                      aria-label="Default select example">
+                <option value="hlaska" selected>Vyberte druh</option>
+                <option th:each="druh_ : ${druhy}" th:value="${druh_}" th:text="${druh_.nazov}" th:selected="${bean.isSelected(druh_)}"></option>
+              </select>
+              <i class="fas fa-exclamation-circle cross spracaPodujatiI"></i>
+              <small class="errorMessage" id="koniecErrorMessage"></small>
+            </div>
+            <div class="hidden" id="datumy">
+              <div class=" mb-2">
+                <div th:class="'formControl ' + ${zaciatokClass}">
+                  <label for="beggining" class="form-label inline-block mb-2 text-gray-700">Začiatok</label>
+                  <input th:disabled="${bean.disableZaciatok()}" type="datetime-local" th:field="*{beggining}" class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding
                 border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                     id="begginingOfTournament">
-              <small class="errorMessage" th:text="${begginingErrorMessage}"></small>
-            </div>
-            <div class="formControl">
-              <label for="endOfEvent" class="form-label inline-block mb-2 text-gray-700">Koniec</label>
-              <input type="datetime-local" th:field="*{end}" class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding
+                         id="beggining">
+                  <small class="errorMessage" th:text="${zaciatokErrorMessage}"></small>
+                </div>
+              </div>
+              <div class="formControl">
+                <label for="end" class="form-label inline-block mb-2 text-gray-700">Koniec</label>
+                <input type="datetime-local" th:field="*{end}" class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding
                   border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                     id="endOfEvent">
-              <small class="errorMessage" th:text="${endErrorMessage}"></small>
+                       id="end">
+                <small class="errorMessage"></small>
+              </div>
             </div>
-            <div class="mt-2">
+            <div class="mb-4 mt-4" id="divKoeficienty">
               <button type="button"
                       class="px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded
                       shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none
@@ -166,33 +186,35 @@
               </button>
               <small class="errorMessage koefErrorMessage ml-2"></small>
             </div>
-            <div class="formControl w-full mt-2">
-              <label for="numbers" class="form-label mb-2 text-gray-700 inline-block">Vygenerované čísla</label>
-              <div class="flex block" id="numbers">
-                <input type="text" th:field="*{first_number}" maxlength="1" id="prveCislo" class="flex-initial w-9 px-3 py-1.5 text-gray-700
+            <div class="hidden" id="cisla">
+              <div class="formControl w-full mt-2">
+                <label for="numbers" class="form-label mb-2 text-gray-700 inline-block">Vygenerované čísla</label>
+                <div class="flex block" id="numbers">
+                  <input th:disabled="${bean.disableCisla()}" type="text" th:field="*{first_number}" maxlength="1" id="prveCislo" class="flex-initial w-9 px-3 py-1.5 text-gray-700
                     bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out mr-5
                       focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none">
-                <input type="text" th:field="*{second_number}" maxlength="1" id="druheCislo" class="flex-initial w-9 px-3 py-1.5 text-gray-700
+                  <input th:disabled="${bean.disableCisla()}" type="text" th:field="*{second_number}" maxlength="1" id="druheCislo" class="flex-initial w-9 px-3 py-1.5 text-gray-700
                     bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out mr-5
                       focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none">
-                <input type="text" th:field="*{third_number}" maxlength="1" id="tretieCislo" class="flex-initial w-9 px-3 py-1.5 text-gray-700
+                  <input th:disabled="${bean.disableCisla()}" type="text" th:field="*{third_number}" maxlength="1" id="tretieCislo" class="flex-initial w-9 px-3 py-1.5 text-gray-700
                     bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out mr-5
                       focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none">
-                <input type="text" th:field="*{fourth_number}" maxlength="1" id="stvrteCislo" class="flex-initial w-9 px-3 py-1.5 text-gray-700
+                  <input th:disabled="${bean.disableCisla()}" type="text" th:field="*{fourth_number}" maxlength="1" id="stvrteCislo" class="flex-initial w-9 px-3 py-1.5 text-gray-700
                     bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out mr-5
                       focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none">
-                <input type="text" th:field="*{fifth_number}" maxlength="1" id="piateCislo" class="flex-initial w-9 px-3 py-1.5 text-gray-700
+                  <input th:disabled="${bean.disableCisla()}" type="text" th:field="*{fifth_number}" maxlength="1" id="piateCislo" class="flex-initial w-9 px-3 py-1.5 text-gray-700
                     bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out mr-5
                       focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none">
-                <small class="errorMessage" th:text="${numbersErrorMessage}"></small>
-                <button type="submit" onclick="return generuj();" class="px-6 py-2.5 ml-16 bg-gray-500 text-white font-medium text-xs leading-tight
+                  <small class="errorMessage"></small>
+                  <button th:if="${!bean.disableCisla()}" type="submit" onclick="return generuj();" class="px-6 py-2.5 ml-16 bg-gray-500 text-white font-medium text-xs leading-tight
                   uppercase rounded shadow-md hover:bg-gray-400 hover:shadow-lg focus:bg-gray-700 focus:shadow-lg
                     focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out">
-                  Generuj náhodne
-                </button>
+                    Generuj náhodne
+                  </button>
+                </div>
               </div>
             </div>
-            <button type="submit" th:text="${buttonText}" class="px-6 py-2.5 bg-green-800 text-white font-medium text-xs leading-tight uppercase
+            <button type="submit" th:text="${buttonText}" class="mt-2 px-6 py-2.5 bg-green-800 text-white font-medium text-xs leading-tight uppercase
                 rounded shadow-md hover:bg-green-700 hover:shadow-lg focus:bg-green-700 focus:shadow-lg focus:outline-none focus:ring-0
                   active:bg-green-800 active:shadow-lg transition duration-150 ease-in-out"></button>
           </form>

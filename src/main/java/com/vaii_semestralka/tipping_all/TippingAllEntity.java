@@ -1,6 +1,7 @@
 package com.vaii_semestralka.tipping_all;
 
 import com.vaii_semestralka.converter.DateTimeConverter;
+import com.vaii_semestralka.druh.DruhEntity;
 import com.vaii_semestralka.tip.TipEntity;
 import com.vaii_semestralka.koeficienty.KoeficientEntity;
 import lombok.Getter;
@@ -17,8 +18,14 @@ import java.util.Set;
 public class TippingAllEntity implements Serializable {
     @Id
     @Getter @Setter private String name;
+
+    @ManyToOne
+    @JoinColumn(name = "druh", referencedColumnName = "nazov")
+    @Getter @Setter private DruhEntity druh;
+
     private LocalDateTime beggining;
     private LocalDateTime end;
+
     @Getter @Setter private int first_number;
     @Getter @Setter private int second_number;
     @Getter @Setter private int third_number;
@@ -28,7 +35,7 @@ public class TippingAllEntity implements Serializable {
      @OneToMany(mappedBy = "tipPrimaryKeys.tippingAllEntity", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
      @Getter private Set<TipEntity> tips;
 
-    @OneToMany(mappedBy = "vyhraPrimaryKey.tippingAllEntity", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "koeficientPrimaryKey.tippingAllEntity", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @Getter private Set<KoeficientEntity> koefs;
     public String getBeggining() {
         return this.beggining == null ? null : DateTimeConverter.formatDateTime(this.beggining);
@@ -61,6 +68,9 @@ public class TippingAllEntity implements Serializable {
 
     public String getEndScreenFormat() {
         return this.end == null ? null : DateTimeConverter.getScreenFormat(this.end);
+    }
+    public LocalDateTime getBegginingDateTime() {
+        return this.beggining;
     }
 }
 

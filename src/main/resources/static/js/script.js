@@ -22,29 +22,133 @@ window.onload = function () {
         spravcaPodujatiForm.addEventListener("submit", (e) => {
             e.preventDefault();
             submitKoeficientForm();
+            sendDruh();
             setTimeout(function() {
                 if (validateSpravcaPodujatiForm()) {
-                    document.getElementById("spravcaPodujatiForm").submit();
+                    checkTippingAllForm();
                 }
             }, 200);
         })
+        let select = document.getElementById("selectDruh");
+        if (document.getElementById("selectDruh").value !== "hlaska") {
+            document.getElementById("datumy").className = "mb-4";
+            document.getElementById("cisla").className = "mb-4";
+        }
+        select.addEventListener("change", zmenaSelectOptions);
     }
 
-    var koeficienty = document.getElementById("koeficienty");
+    let koeficienty = document.getElementById("koeficienty");
     if (koeficienty != null) {
         document.body.addEventListener("click", zavriOknoCheck);
         koeficienty.addEventListener("click", otvorModalOkno);
         initKoefs();
     }
 
+    let novyDruh = document.getElementById("newDruhForm");
+    if (novyDruh != null) {
+        novyDruh.addEventListener("submit", (e) => {
+            if (!validateNovyDruhForm()) {
+                e.preventDefault();
+            }
+        })
+    }
+
+}
+function zmenaSelectOptions() {
+    let select = document.getElementById("selectDruh");
+    if (select.value !== "hlaska") {
+        $.ajax ({
+            type: "POST",
+            url: 'http://localhost:8080/X-Tipping/getDatumy',
+            data: select.options[select.selectedIndex].text,
+            dataType: "json",
+            contentType: "application/json",
+            success: function(data) {
+                document.getElementById("divKoeficienty").classList.remove("mt-4");
+                document.getElementById("beggining").value = data.response[0];
+                document.getElementById("end").value = data.response[1];
+                document.getElementById("datumy").className = "mb-4";
+                document.getElementById("cisla").className = "mb-4";
+                zobrazCisla(parseInt(data.response[2]));
+            },
+            error: function() {
+                alert("error");
+            }
+        });
+    } else {
+        document.getElementById("divKoeficienty").classList.add("mt-4");
+        document.getElementById("datumy").className = "hidden";
+        document.getElementById("cisla").className = "hidden";
+    }
+}
+
+function zobrazCisla(pocet) {
+    let cisla = document.getElementById("cisla").querySelectorAll('input[type="text"]');
+    for (let i = 0; i < 5; i++) {
+        if (i < pocet) {
+             cisla[i].classList.remove("hidden");
+        } else {
+            cisla[i].classList.add("hidden");
+        }
+    }
+}
+
+function checkTippingAllForm() {
+    let nazov = document.getElementById("name");
+    let zaciatok = document.getElementById("beggining");
+    let sendData = [nazov.value, zaciatok.value];
+    $.ajax ({
+        type: "POST",
+        url: 'http://localhost:8080/X-Tipping/validate',
+        data: JSON.stringify(sendData),
+        dataType: "json",
+        contentType: "application/json",
+        success: function(data) {
+            var vporiadku = true;
+            if (data.response[0] != null && data.response[0] !== "") {
+                setErrorFor(nazov, data.response[0]);
+                vporiadku = false;
+            } else {
+                setSuccessFor(nazov);
+            }
+            if (data.response[1] != null && data.response[1] !== "") {
+                setErrorFor(zaciatok, data.response[1]);
+                vporiadku = false;
+            } else {
+                setSuccessFor(zaciatok);
+            }
+            if (vporiadku) {
+                document.getElementById("spravcaPodujatiForm").submit();
+            }
+        },
+        error: function() {
+            alert("error");
+        }
+    });
+}
+
+function sendDruh() {
+    let select = document.getElementById("selectDruh");
+    $.ajax ({
+        type: "POST",
+        url: 'http://localhost:8080/X-Tipping/setDruh',
+        data: select.options[select.selectedIndex].text,
+        dataType: "json",
+        contentType: "application/json",
+        success: function(data) {
+
+        },
+        error: function() {
+            alert("error");
+        }
+    });
 }
 
 function submitKoeficientForm() {
     let koeficients = getKoeficients();
-    var urll = 'http://localhost:8080/X-Tipping/saveKoeficient';
     $.ajax ({
         type: "POST",
-        url: urll,
+        url: 'http://localhost:8080/X-Tipping/saveKoeficient',
         data: JSON.stringify(koeficients),
         dataType: "json",
         contentType: "application/json",
@@ -64,9 +168,9 @@ function submitKoeficientForm() {
 }
 
 function getKoeficients() {
-    var koeficients = [];
-    var ods = document.getElementById("koeficientForm").querySelectorAll('input[type="text"]');
-    for (var i = 0; i < ods.length / 3; i++) {
+    let koeficients = [];
+    let ods = document.getElementById("koeficientForm").querySelectorAll('input[type="text"]');
+    for (let i = 0; i < ods.length / 3; i++) {
         koeficients.push({"od_":ods[3 * i].value, "do_":ods[3 * i + 1].value, "koef":ods[3 * i + 2].value});
     }
     return koeficients;
@@ -83,11 +187,22 @@ function initKoefs() {
         dataType: "json",
         contentType: "application/json",
         success: function (data) {
-            for (var i = 0; i < data.response.length; i++) {
-                addKoeficientToTemplate(data.response[i].od_, data.response[i].do_, data.response[i].koef);
+            var disable = 0;
+            if (data.responseStatus === "disable") {
+                disable = 1;
+            }
+            for (let i = 0; i < data.response.length; i++) {
+                addKoeficientToTemplate(data.response[i].od_, data.response[i].do_, data.response[i].koef, disable);
             }
             if (data.response.length === 0) {
                 document.getElementById("odoberButton").style.visibility = "hidden";
+            }
+            if (disable) {
+                document.getElementById("odoberButton").style.visibility = "hidden";
+                document.getElementById("pridajButton").style.visibility = "hidden";
+                document.getElementById("zrusButton").style.visibility = "hidden";
+                document.getElementById("ulozButton").style.visibility = "hidden";
+                document.getElementById("okButton").classList.remove("hidden");
             }
         },
         error: function () {
@@ -96,7 +211,7 @@ function initKoefs() {
     });
 }
 
-function addKoeficientToTemplate(odV, doV, koefV) {
+function addKoeficientToTemplate(odV, doV, koefV, disable) {
     koeficients = getKoeficients();
     let content = document.getElementById("koeficientForm");
     var newDiv = document.createElement("div");
@@ -111,6 +226,9 @@ function addKoeficientToTemplate(odV, doV, koefV) {
         input.id = nazvy[i] + (koeficients.length);
         input.className = "flex-initial w-" + rozmery[i] + " px-3 py-1.5 text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out mr-5 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none";
         input.value = hodnoty[i];
+        if (disable) {
+            input.setAttribute("disabled", "disabled");
+        }
 
         var label = document.createElement("label");
         label.htmlFor = nazvy[i] + (koeficients.length);
@@ -156,6 +274,7 @@ function zrusOkno() {
         content.removeChild(document.getElementById("content" + i));
     }
     initKoefs();
+    zavriOkno();
 }
 
 function zavriOkno() {
@@ -334,8 +453,9 @@ function dateDiffInYears(dateold, datenew) {
 function validateSpravcaPodujatiForm() {
     vysledok = true;
     const nazov = document.getElementById("name");
-    const begin = document.getElementById("begginingOfTournament");
-    const end = document.getElementById("endOfEvent");
+    const begin = document.getElementById("beggining");
+    const end = document.getElementById("end");
+    const druh = document.getElementById("selectDruh");
     const prveCislo = document.getElementById("prveCislo");
     const druheCislo = document.getElementById("druheCislo");
     const tretieCislo = document.getElementById("tretieCislo");
@@ -355,14 +475,14 @@ function validateSpravcaPodujatiForm() {
         setErrorFor(begin, "Začiatok je povinné pole!");
         vysledok = false;
     } else {
-        let beginDate = Date.parse(begin.value);
-        let now = new Date();
-        if (beginDate - now < 0) {
-            setErrorFor(begin, "Dátum začiatku musí byť väčší ako súčasný!");
-            vysledok = false;
-        } else {
-            setSuccessFor(begin);
-        }
+        setSuccessFor(begin);
+    }
+
+    if (druh.value === "hlaska") {
+        setErrorFor(druh, "Druh nie je špecifikovaný");
+        vysledok = false;
+    } else {
+        setSuccessFor(druh);
     }
 
     if (end.value === "") {
@@ -405,3 +525,50 @@ function jeCislo(cislo) {
     return /[0-9]/.test(cislo);
 }
 
+function validateNovyDruhForm() {
+    var vysledok = true;
+    let nazov = document.getElementById("name");
+    let zaciatok = document.getElementById("zaciatok");
+    let koniec = document.getElementById("koniec");
+    let pocetCislic = document.getElementById("pocetCislic");
+    let minPocetTipov = document.getElementById("minPocetTipov");
+
+    if (nazov.value === "") {
+        setErrorFor(nazov, "Názov nesmie byť prázdny");
+        vysledok = false;
+    } else {
+        setSuccessFor(nazov);
+    }
+
+    if (zaciatok.value === "Vyberte jednu z možností") {
+        setErrorFor(zaciatok, "Prosím vyberte možnosť pre začiatok");
+        vysledok = false;
+    }
+
+    if (koniec.value === "Vyberte jednu z možností") {
+        setErrorFor(koniec, "Prosím vyberte možnosť pre začiatok");
+        vysledok = false;
+    } else {
+        setSuccessFor(koniec);
+    }
+
+    if (pocetCislic.value === "" || parseInt(pocetCislic.value, 10) <= 0) {
+        setErrorFor(pocetCislic, "Počet nesmie byť prázdny");
+        vysledok = false;
+    } else {
+        if (parseInt(pocetCislic.value, 10) > 5) {
+            setErrorFor(pocetCislic, "Počet musí byť menší ako 6");
+            vysledok = false;
+        } else {
+            setSuccessFor(pocetCislic);
+        }
+    }
+
+    if (minPocetTipov.value === "" || parseInt(minPocetTipov.value, 10) === 0) {
+        setErrorFor(minPocetTipov, "Zadajte min počet tipov");
+        vysledok = false;
+    } else {
+        setSuccessFor(minPocetTipov);
+    }
+    return vysledok;
+}
