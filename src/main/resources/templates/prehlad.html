@@ -191,14 +191,17 @@
                                 <span class="text-gray-300">Môj tip</span>
                             </th>
                             <th class="lg:w-1/12 py-2 px-10 lg:px-0">
-                                <span class="text-gray-300">Akcie</span>
+                                <span class="text-gray-300" th:text="${prehladBean.getTextCol()}"></span>
                             </th>
                         </tr>
                         </thead>
                         <!-- tipping -->
                         <tbody th:each="tipping : ${tippings}" class="bg-gray-200">
                         <tr class="bg-white border-4 border-gray-200">
-                            <td th:text="${tipping.name}" class="py-2 text-center font-semibold px-2"></td>
+
+                            <td class="py-2 text-center font-semibold px-2">
+                                <a th:href="@{/viewPodujatie(paName=${tipping.name})}" th:text="${tipping.name}"></a>
+                            </td>
                             <td th:text="${tipping.getBegginingScreenFormat()}" class="py-2 text-center px-2"></td>
                             <td th:text="${prehladBean.getNumberOfTips(tipping.name)}" class="text-center py-2"></td>
                             <td class="text-center py-2 px-2">
@@ -209,17 +212,13 @@
                             <td class="text-center py-2 px-2">
                                 <i th:class="${prehladBean.getMojTip(tipping)} + '-600 fa-lg'"></i>
                             </td>
-
                             <td class="text-center py-2 px-2">
-                                <a th:href="@{/tipuj(paName=${tipping.name})}" class="px-[2px]">
-                                    <i class="fa fa-external-link fa-lg"></i>
-                                </a>
                                 <a href="#" class="px-[2px]">
                                     <i class="fa fa-info-circle fa-lg"></i>
                                 </a>
-                               <a th:href="@{/edit(paName=${tipping.name})}" th:if="${jeAdmin}" class="px-[2px]">
-                                   <i class="fa fa-pencil fa-lg"></i>
-                               </a>
+                                <a th:href="@{/edit(paName=${tipping.name})}" th:if="${jeAdmin}" class="px-[2px]">
+                                    <i class="fa fa-pencil fa-lg"></i>
+                                </a>
                                 <a href="#" th:name="${tipping.name}" th:if="${jeAdmin}" class="px-[2px] vymaz">
                                     <i class="fa fa-trash fa-lg text-red-700"></i>
                                 </a>

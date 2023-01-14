@@ -16,6 +16,7 @@ import java.util.List;
 public class PrehladBean {
     @Autowired private TippingAllService service;
     @Autowired private KoeficientService koeficientService;
+    @Autowired private Session session;
 
     public List<TippingAllEntity> getTippings() {
         return service.findAllInOrder();
@@ -43,6 +44,10 @@ public class PrehladBean {
                 return "yellow";
         }
     }
+    public String getTextCol() {
+        return this.session.jePrihlasenyPouzivatelAdmin() ? "Akcie" : "Výsledky";
+    }
+
     public String getPopisStavu(TippingAllEntity tippingAllEntity) {
         return tippingAllEntity.getStavUdalosti().getStav();
     }

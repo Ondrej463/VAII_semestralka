@@ -144,7 +144,7 @@ public class SpravcaPodujatiBean {
     }
 
     public boolean disableZaciatok() {
-        return this.operacia == Operacia.EDIT && this.tipping.getStavUdalosti() != StavUdalosti.NEZACAL;
+        return this.operacia == Operacia.EDIT && !this.tipping.getTips().isEmpty();
     }
 
     public boolean disableCisla() {

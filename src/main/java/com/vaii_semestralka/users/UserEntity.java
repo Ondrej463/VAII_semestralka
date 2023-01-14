@@ -19,7 +19,7 @@ public class UserEntity {
     private Date born_date;
     @Getter @Setter private String passwd;
     @Getter @Setter private String adress;
-    @Getter @Setter private int credit;
+    @Getter @Setter private double credit;
 
     @OneToMany(mappedBy = "tipPrimaryKeys.userEntity", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @Getter private List<TipEntity> tips;

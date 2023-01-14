@@ -39,6 +39,15 @@ public class PrehladControler {
         return "redirect:/spravcaPodujati";
     }
 
+    @RequestMapping("/viewPodujatie")
+    public String viewPodujatie(
+            @RequestParam(name = "paName", required = false) String name,
+            RedirectAttributes redirectAttributes
+    ) {
+        redirectAttributes.addFlashAttribute("nazov", name);
+        return "redirect:/podujatie";
+    }
+
     @RequestMapping("/novy")
     public String novy(RedirectAttributes redirectAttributes) {
         redirectAttributes.addFlashAttribute("name", null);

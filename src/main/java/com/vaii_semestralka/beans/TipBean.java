@@ -7,31 +7,36 @@ import com.vaii_semestralka.tip.TipPrimaryKey;
 import com.vaii_semestralka.tip.TipService;
 import com.vaii_semestralka.tipping_all.TippingAllEntity;
 import com.vaii_semestralka.tipping_all.TippingAllService;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Configuration
 public class TipBean {
     @Autowired private TipService tipService;
     @Autowired private TippingAllService tippingAllService;
+
+    @Getter @Setter TippingAllEntity tippingAllEntity;
     private TipPrimaryKey tipPrimaryKeys;
-
-    public TipEntity getTip(String name) {
-        this.tipPrimaryKeys = new TipPrimaryKey(tippingAllService.findById(name), LoggedInUser.getActualUser());
-        TipEntity tipEntity = tipService.findById(this.tipPrimaryKeys);
-        return Objects.requireNonNullElseGet(tipEntity, TipEntity::new);
+    @Getter @Setter private TipEntity tipEntity;
+    public void init(String meno) {
+        this.tipEntity = new TipEntity();
+        this.tippingAllEntity = this.tippingAllService.findById(meno);
+        this.tipPrimaryKeys = new TipPrimaryKey(tippingAllService.findById(meno), LoggedInUser.getActualUser());
     }
 
-    public TippingAllEntity getTippingAllEntity(String name) {
-        return tippingAllService.findById(name);
-    }
     public void save(TipEntity tipEntity) {
         tipEntity.setTipPrimaryKeys(this.tipPrimaryKeys);
         tipEntity.setWhen(DateTimeConverter.formatDateTime(LocalDateTime.now()));
         LoggedInUser.getActualUser().addTip(tipEntity);
+        LoggedInUser.getActualUser().setCredit(LoggedInUser.getActualUser().getCredit() - tipEntity.getVklad());
         this.tipService.save(tipEntity);
     }
 
@@ -41,5 +46,12 @@ public class TipBean {
             this.tipService.delete(tipEntity);
             LoggedInUser.getActualUser().delTip(tipEntity);
         }
+    }
+
+    public String validate(TipEntity tipEntity) {
+        if (tipEntity.getVklad() > LoggedInUser.getActualUser().getCredit()) {
+            return "Nemáte dostatok finančných prostriedkov na účte!";
+        }
+        return "";
     }
 }

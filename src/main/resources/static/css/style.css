@@ -84,6 +84,11 @@ html, body {
 .formControl .spracaPodujatiI {
     top:43px;
 }
+.formControl .tipI {
+    top:45px;
+    right:19px;
+}
+
 .formControl i {
     visibility: hidden;
     position: absolute;
@@ -110,6 +115,9 @@ html, body {
 .formControl.error i.fa-exclamation-circle {
     color: #e74c3c;
     visibility: visible;
+}
+.formControl .tipSmall {
+    position: static;
 }
 .formControl small {
     position: absolute;

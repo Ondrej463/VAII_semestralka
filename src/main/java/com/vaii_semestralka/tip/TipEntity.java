@@ -13,6 +13,8 @@ import java.time.LocalDateTime;
 public class TipEntity implements Serializable {
     @EmbeddedId
     @Getter @Setter private TipPrimaryKey tipPrimaryKeys;
+
+    @Getter @Setter private double vklad;
     @Column(name="input_time")
     private LocalDateTime when;
     @Getter @Setter private int first_number;
