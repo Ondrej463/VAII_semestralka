@@ -7,6 +7,7 @@ import com.vaii_semestralka.tip.TipService;
 import com.vaii_semestralka.tipping_all.StavUdalosti;
 import com.vaii_semestralka.tipping_all.TippingAllEntity;
 import com.vaii_semestralka.tipping_all.TippingAllService;
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
@@ -18,9 +19,10 @@ import java.util.stream.Collectors;
 public class MojeTipyBean {
     @Autowired private TippingAllService tippingAllService;
     @Autowired private TipService tipService;
-    public List<TippingAllEntity> getAllUserTippings() {
-        return LoggedInUser.getActualUser().getTips().stream()
-                .map(tipEntity -> tipEntity.getTipPrimaryKeys().getTippingAllEntity()).collect(Collectors.toList());
+
+
+    public List<TipEntity> getAllUserTippings() {
+        return tipService.getAllTipsOrderByWhen(LoggedInUser.getActualUser().getEmail());
     }
 
     public String getColor(TippingAllEntity tippingAllEntity) {
@@ -55,7 +57,7 @@ public class MojeTipyBean {
                 }
                 vypis[1] = "green";
             } else {
-                if ((tippingAllEntity.getStavUdalosti() == null) || (tip.getVysledkyEntity() != null && tip.getVysledkyEntity().getZisk() > 0)) {
+                if ((tip.getVysledkyEntity() == null) || (tip.getVysledkyEntity() != null && tip.getVysledkyEntity().getZisk() > 0)) {
                     vypis[0] = "Nevybraté peniaze";
                     vypis[1] = "red";
                 } else {
@@ -67,11 +69,11 @@ public class MojeTipyBean {
         return vypis;
     }
 
-    public String getZisk(TippingAllEntity tippingAllEntity) {
-        if (getTipEntity(tippingAllEntity).getVysledkyEntity() == null) {
+    public String getZisk(TipEntity tipEntity) {
+        if (tipEntity.getVysledkyEntity() == null) {
             return "-";
         } else {
-            return getTipEntity(tippingAllEntity).getVysledkyEntity().getZiskScreenFormat();
+            return tipEntity.getVysledkyEntity().getZiskScreenFormat();
         }
     }
 

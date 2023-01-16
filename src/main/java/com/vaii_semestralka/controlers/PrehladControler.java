@@ -26,6 +26,7 @@ public class PrehladControler {
         model.addAttribute("lastName", session.getUserLastName());
         model.addAttribute("jeAdmin", session.jePrihlasenyPouzivatelAdmin());
         model.addAttribute("prehladBean", prehladBean);
+        model.addAttribute("jeSprava", model.containsAttribute("pridanyTipSprava"));
         return "prehlad";
     }
     @RequestMapping("/edit")

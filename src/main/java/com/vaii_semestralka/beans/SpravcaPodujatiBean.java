@@ -148,7 +148,7 @@ public class SpravcaPodujatiBean {
     }
 
     public boolean disableKoniec() {
-        return this.tipping.getStavUdalosti() == StavUdalosti.SKONCENY;
+        return this.operacia == Operacia.EDIT && this.tipping.getStavUdalosti() == StavUdalosti.SKONCENY;
     }
 
     public boolean disableCisla() {

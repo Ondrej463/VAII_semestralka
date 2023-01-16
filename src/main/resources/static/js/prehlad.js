@@ -11,6 +11,13 @@ window.onload = function () {
         hrefs[i].addEventListener("click", potvrd);
     }
     kontrolujZobrazenieInfo();
+    if (document.getElementById("sprava") != null) {
+        setTimeout(vypniSpravu, 4000);
+    }
+}
+
+function vypniSpravu() {
+    document.getElementById("sprava").classList.add("hidden");
 }
 
 function kontrolujZobrazenieInfo() {

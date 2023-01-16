@@ -14,5 +14,6 @@ public interface TippingAllRepository extends JpaRepository<TippingAllEntity, St
     public void deleteByName(String name);
 
     @Query(value="SELECT * from tipping_all t ORDER BY t.beggining", nativeQuery = true)
-    List<TippingAllEntity> findAllInOrder();
+    List<TippingAllEntity> findAllInOrderByZaciatok();
+
 }

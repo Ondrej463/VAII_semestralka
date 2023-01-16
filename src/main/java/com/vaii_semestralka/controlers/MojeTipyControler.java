@@ -31,15 +31,11 @@ public class MojeTipyControler {
     @GetMapping("/zobrazPodujatie")
     public String zobrazPodujatie(@RequestParam("paName") String name,
                                   RedirectAttributes redirectAttributes) {
+        redirectAttributes.addFlashAttribute("nazov", name);
         if (this.mojeTipyBean.getTippingAllEntity(name).getStavUdalosti() == StavUdalosti.SKONCENY) {
-            redirectAttributes.addFlashAttribute("nazov", name);
             return "redirect:/vysledky";
         }
-        return "redirect:/mojeTipy";
-    }
-    @PostMapping("/sendTip")
-    public String postMojeTipy() {
-        return "";
+        return "redirect:/podujatie";
     }
 
 }

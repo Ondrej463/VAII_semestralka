@@ -3,6 +3,7 @@ package com.vaii_semestralka.tip;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 @Service
 public class TipService implements TipServiceInterface {
@@ -26,5 +27,10 @@ public class TipService implements TipServiceInterface {
     @Override
     public void delete(TipEntity tipEntity) {
         repository.delete(tipEntity);
+    }
+
+    @Override
+    public List<TipEntity> getAllTipsOrderByWhen(String who) {
+        return this.repository.getAllTipsOrderByWhen(who);
     }
 }

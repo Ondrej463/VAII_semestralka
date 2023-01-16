@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="https://cdn.tailwindcss.com"></script>
+  <script th:src="@{js/script.js}"></script>
 </head>
 
 <body class="flex flex-col h-screen bg-gray-800 font-sans leading-normal tracking-normal overflow-x-hidden">
@@ -111,12 +112,12 @@
             <tbody th:each="tipping : ${tippings}" class="bg-gray-200">
             <tr class="bg-white border-4 border-gray-200">
               <td class="py-2 text-center font-semibold px-2">
-                <a th:text="${tipping.getName()}" th:href="@{/zobrazPodujatie(paName=${tipping.getName()})}"></a>
+                <a th:text="${tipping.tipPrimaryKeys.tippingAllEntity.name}" th:href="@{/zobrazPodujatie(paName=${tipping.tipPrimaryKeys.tippingAllEntity.name})}"></a>
               </td>
-              <td th:text="${bean.getTipEntity(tipping).getCisla()}" class="py-2 text-center px-2"></td>
-              <td th:text="${bean.getTipEntity(tipping).vkladScreenFormat}" class="py-2 text-center px-2"></td>
+              <td th:text="${tipping.getCisla()}" class="py-2 text-center px-2"></td>
+              <td th:text="${tipping.vkladScreenFormat}" class="py-2 text-center px-2"></td>
               <td th:text="${bean.getZisk(tipping)}" class="text-center py-2"></td>
-              <td th:bgcolor="${bean.getStavTipu(tipping)[1]}" th:text="${bean.getStavTipu(tipping)[0]}" th:class="'uppercase text-' + ${bean.getStavTipu(tipping)[1].equals('green') ? 'white' : 'black'} + ' text-xs text-center py-2 px-3'">
+              <td th:bgcolor="${bean.getStavTipu(tipping.tipPrimaryKeys.tippingAllEntity)[1]}" th:text="${bean.getStavTipu(tipping.tipPrimaryKeys.tippingAllEntity)[0]}" th:class="'uppercase text-' + ${bean.getStavTipu(tipping.tipPrimaryKeys.tippingAllEntity)[1].equals('green') ? 'white' : 'black'} + ' text-xs text-center py-2 px-3'">
               </td>
             </tr>
             </tbody>

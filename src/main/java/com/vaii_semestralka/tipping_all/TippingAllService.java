@@ -33,6 +33,7 @@ public class TippingAllService implements TippingAllServiceInterface {
 
     @Override
     public List<TippingAllEntity> findAllInOrder() {
-        return tippingAllRepository.findAllInOrder();
+        return tippingAllRepository.findAllInOrderByZaciatok();
     }
+
 }

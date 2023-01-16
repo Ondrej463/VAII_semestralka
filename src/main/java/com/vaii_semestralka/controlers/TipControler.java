@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -50,7 +51,14 @@ public class TipControler {
             redirectAttributes.addFlashAttribute("vkladClass", "error");
             return "redirect:/tip";
         }
-        tipBean.save(tipEntity);
+        if (LocalDateTime.now().isBefore(this.tipBean.getTippingAllEntity().getEndDateTime())) {
+            redirectAttributes.addFlashAttribute("pridanyTipSprava", "Tip bol úspešne zaregistrovaný!");
+            redirectAttributes.addFlashAttribute("farbaSpravyPreTip", "green");
+            tipBean.save(tipEntity);
+        } else {
+            redirectAttributes.addFlashAttribute("pridanyTipSprava", "Tip sa nepodarilo odoslať!");
+            redirectAttributes.addFlashAttribute("farbaSpravyPreTip", "red");
+        }
         return "redirect:/prehlad";
     }
 
