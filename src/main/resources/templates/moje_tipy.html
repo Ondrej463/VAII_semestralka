@@ -110,11 +110,14 @@
             <!-- tipping -->
             <tbody th:each="tipping : ${tippings}" class="bg-gray-200">
             <tr class="bg-white border-4 border-gray-200">
-              <td th:text="${tipping.getName()}" class="py-2 text-center font-semibold px-2"></td>
-              <td th:text="${bean.getTipEntity(tipping).getCisla()}" class="py-2 text-center font-semibold px-2"></td>
+              <td class="py-2 text-center font-semibold px-2">
+                <a th:text="${tipping.getName()}" th:href="@{/zobrazPodujatie(paName=${tipping.getName()})}"></a>
+              </td>
+              <td th:text="${bean.getTipEntity(tipping).getCisla()}" class="py-2 text-center px-2"></td>
               <td th:text="${bean.getTipEntity(tipping).vkladScreenFormat}" class="py-2 text-center px-2"></td>
               <td th:text="${bean.getZisk(tipping)}" class="text-center py-2"></td>
-              <td th:text="${bean.getStavTipu(tipping)[0]}" th:class="'text-center py-2 bg-' + ${bean.getStavTipu(tipping)[1]} + '200'"></td>
+              <td th:bgcolor="${bean.getStavTipu(tipping)[1]}" th:text="${bean.getStavTipu(tipping)[0]}" th:class="'uppercase text-' + ${bean.getStavTipu(tipping)[1].equals('green') ? 'white' : 'black'} + ' text-xs text-center py-2 px-3'">
+              </td>
             </tr>
             </tbody>
           </table>

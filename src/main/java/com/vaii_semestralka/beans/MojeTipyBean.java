@@ -45,18 +45,26 @@ public class MojeTipyBean {
         if (tippingAllEntity.getStavUdalosti() == StavUdalosti.PREBIEHA) {
             vypis[0] = "Čaká na výsledok";
             vypis[1] = "yellow";
-            return vypis;
         } else {
-            if (getTipEntity(tippingAllEntity).isVybratePeniaze()) {
-                vypis[0] = "Peniaze vybraté";
+            TipEntity tip = getTipEntity(tippingAllEntity);
+            if (tip.isVybratePeniaze()) {
+                if (tip.getVysledkyEntity() == null) {
+                    vypis[0] = "Peniaze vrátené";
+                } else {
+                    vypis[0] = "Peniaze vybraté";
+                }
                 vypis[1] = "green";
-                return vypis;
             } else {
-                vypis[0] = "Nevybraté peniaze";
-                vypis[1] = "red";
-                return vypis;
+                if ((tippingAllEntity.getStavUdalosti() == null) || (tip.getVysledkyEntity() != null && tip.getVysledkyEntity().getZisk() > 0)) {
+                    vypis[0] = "Nevybraté peniaze";
+                    vypis[1] = "red";
+                } else {
+                    vypis[0] = "Nevyhrali ste";
+                    vypis[1] = "white";
+                }
             }
         }
+        return vypis;
     }
 
     public String getZisk(TippingAllEntity tippingAllEntity) {
@@ -67,4 +75,7 @@ public class MojeTipyBean {
         }
     }
 
+    public TippingAllEntity getTippingAllEntity(String name) {
+        return this.tippingAllService.findById(name);
+    }
 }

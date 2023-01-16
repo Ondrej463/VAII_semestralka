@@ -147,6 +147,10 @@ public class SpravcaPodujatiBean {
         return this.operacia == Operacia.EDIT && !this.tipping.getTips().isEmpty();
     }
 
+    public boolean disableKoniec() {
+        return this.tipping.getStavUdalosti() == StavUdalosti.SKONCENY;
+    }
+
     public boolean disableCisla() {
         return this.operacia == Operacia.EDIT && this.tipping.getTips() != null && !this.tipping.getTips().isEmpty();
     }

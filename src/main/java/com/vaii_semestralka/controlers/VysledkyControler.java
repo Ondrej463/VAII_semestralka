@@ -19,6 +19,8 @@ public class VysledkyControler {
     public String getVysledky(Model model) {
         if (model.containsAttribute("nazov")) {
             this.vysledkyBean.init(model.getAttribute("nazov").toString());
+        } else {
+            this.vysledkyBean.reloadTipStatus();
         }
         model.addAttribute("firstName", session.getUserFirstName());
         model.addAttribute("lastName", session.getUserLastName());

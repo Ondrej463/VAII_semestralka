@@ -32,7 +32,7 @@ public class DruhControler {
         if (this.druhBean.getNazovErrorMessage().equals("")) {
             this.druhBean.save(druh);
             this.druhBean.setNazovClass(null);
-            return "redirect:/informacie";
+            return "redirect:/druhyAll";
         }
         redirectAttributes.addFlashAttribute("newDruh", druh);
         return "redirect:/novyDruh";

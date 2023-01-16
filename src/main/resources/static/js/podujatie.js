@@ -6,6 +6,8 @@ window.onload = function () {
         button.classList.remove("hover:bg-green-800");
         button.classList.remove("focus:bg-green-800");
         button.classList.remove("active:bg-green-800");
+        button.classList.remove("bg-green-700");
+        button.classList.add("bg-gray-400");
     }
 
 }

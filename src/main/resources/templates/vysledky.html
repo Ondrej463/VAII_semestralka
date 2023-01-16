@@ -104,10 +104,11 @@
                                     </div>
                                 </div>
                                 <div class="w-full text-center mt-4 h-8" id="prevziatButton" th:if="${bean.getTipPrihlasenehoPouzivatela().getVysledkyEntity().zisk > 0}">
-                                    <input type="submit" class="px-6 py-2.5 bg-green-800 text-white font-medium text-xs leading-tight
+                                    <button class="px-6 py-2.5 bg-green-800 text-white font-medium text-xs leading-tight
                                             uppercase rounded shadow-md hover:bg-green-700 hover:shadow-lg focus:bg-green-700 focus:shadow-lg
                                             focus:outline-none focus:ring-0 active:bg-green-700 active:shadow-lg transition duration-150 ease-in-out"
-                                            th:value="'Prevziať ' + ${bean.getTipPrihlasenehoPouzivatela().getVysledkyEntity().ziskScreenFormat}" onclick="vyberPeniaze()">
+                                            th:text="'Prevziať ' + ${bean.getTipPrihlasenehoPouzivatela().getVysledkyEntity().ziskScreenFormat}" onclick="vyberPeniaze()">
+                                    </button>
                                 </div>
 
                                 <div class="w-full text-center mt-4 h-8 hidden" id="hlaskaPoStlaceniTlacidla">
@@ -200,16 +201,17 @@
                             </div>
                         </div>
 
-                        <div class="mt-20" id="neplatnyTurnaj" th:if="${!bean.jePlatny}">
+                        <div id="neplatnyTurnaj" th:if="${!bean.jePlatny}">
                             <div class="h-auto p-10 bg-red-300" th:if="${bean.getTipPrihlasenehoPouzivatela() != null}">
                                 <div class="text-center font-bold text-xl" th:if="${!bean.tipPrihlasenehoPouzivatela.vybratePeniaze}"
                                     th:text="'Ľutujeme, ' + ${tipping.getName()} + ' bol zrušený z dôvodu nízkeho počtu tipov. Kliknutím na tlačidlo vám vrátime váš vklad ' + ${bean.tipPrihlasenehoPouzivatela.vkladScreenFormat} + ' späť na účet.'">
                                 </div>
                                 <div class="text-center mt-6 h-8" th:if="${!bean.getTipPrihlasenehoPouzivatela().vybratePeniaze}" id="vratitPeniazeButton">
-                                    <input type="submit" class="px-6 py-2.5 bg-red-800 text-white font-medium text-base leading-tight
+                                    <button class="px-6 py-2.5 bg-red-800 text-white font-medium text-base leading-tight
                                             uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg
                                              focus:outline-none focus:ring-0 active:bg-red-700 active:shadow-lg transition duration-150 ease-in-out"
-                                            th:value="'Vrátiť ' + ${bean.getTipPrihlasenehoPouzivatela().vkladScreenFormat} + '!'" onclick="vratPeniaze()">
+                                            th:text="'Vrátiť ' + ${bean.getTipPrihlasenehoPouzivatela().vkladScreenFormat} + '!'" onclick="vratPeniaze()">
+                                    </button>
                                 </div>
                                 <div class="text-center font-bold text-xl" th:if="${bean.getTipPrihlasenehoPouzivatela().vybratePeniaze}"
                                      th:text="'Ľutujeme, ' + ${tipping.getName()} + ' bol zrušený z dôvodu nízkeho počtu tipov.'">

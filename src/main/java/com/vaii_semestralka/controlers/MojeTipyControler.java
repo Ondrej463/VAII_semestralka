@@ -1,9 +1,8 @@
 package com.vaii_semestralka.controlers;
 
-import com.vaii_semestralka.LoggedInUser;
 import com.vaii_semestralka.beans.MojeTipyBean;
 import com.vaii_semestralka.beans.Session;
-import com.vaii_semestralka.tipping_all.TippingAllEntity;
+import com.vaii_semestralka.tipping_all.StavUdalosti;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,6 +28,15 @@ public class MojeTipyControler {
         return "moje_tipy";
     }
 
+    @GetMapping("/zobrazPodujatie")
+    public String zobrazPodujatie(@RequestParam("paName") String name,
+                                  RedirectAttributes redirectAttributes) {
+        if (this.mojeTipyBean.getTippingAllEntity(name).getStavUdalosti() == StavUdalosti.SKONCENY) {
+            redirectAttributes.addFlashAttribute("nazov", name);
+            return "redirect:/vysledky";
+        }
+        return "redirect:/mojeTipy";
+    }
     @PostMapping("/sendTip")
     public String postMojeTipy() {
         return "";

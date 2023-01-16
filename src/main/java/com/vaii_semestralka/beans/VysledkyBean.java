@@ -132,5 +132,9 @@ public class VysledkyBean {
         tip.setVybratePeniaze(true);
         this.tipService.save(tip);
     }
+
+    public void reloadTipStatus() {
+        this.tipPrihlasenehoPouzivatela = this.tipService.findById(new TipPrimaryKey(this.tippingAllEntity, LoggedInUser.getActualUser()));
+    }
 }
 
