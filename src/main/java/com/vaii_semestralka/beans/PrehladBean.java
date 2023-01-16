@@ -62,6 +62,10 @@ public class PrehladBean {
     public TippingAllEntity getTipping(String name) {
         return this.service.findById(name);
     }
+
+    public boolean disableInfo(TippingAllEntity tippingAllEntity) {
+        return tippingAllEntity.getStavUdalosti() != StavUdalosti.SKONCENY;
+    }
 }
 
 

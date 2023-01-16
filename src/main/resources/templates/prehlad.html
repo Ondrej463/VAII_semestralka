@@ -202,18 +202,18 @@
                             <td class="py-2 text-center font-semibold px-2">
                                 <a th:href="@{/viewPodujatie(paName=${tipping.name})}" th:text="${tipping.name}"></a>
                             </td>
-                            <td th:text="${tipping.getBegginingScreenFormat()}" class="py-2 text-center px-2"></td>
+                            <td th:text="${tipping.getBegginingScreenFormat()}" class="py-2 text-center px-2" id="zaciatok"></td>
                             <td th:text="${prehladBean.getNumberOfTips(tipping.name)}" class="text-center py-2"></td>
                             <td class="text-center py-2 px-2">
                                 <div th:class="'border-green-800 rounded-md bg-' + ${prehladBean.getColor(tipping)} + '-800 w-20 h-auto mx-auto'">
-                                    <div class="text-white py-1 text-center" th:text="${prehladBean.getPopisStavu(tipping)}"></div>
+                                    <div class="text-white py-1 text-center stav" th:text="${prehladBean.getPopisStavu(tipping)}"></div>
                                 </div>
                             </td>
                             <td class="text-center py-2 px-2">
                                 <i th:class="${prehladBean.getMojTip(tipping)} + '-600 fa-lg'"></i>
                             </td>
                             <td class="text-center py-2 px-2">
-                                <a href="#" class="px-[2px]">
+                                <a th:hidden="${prehladBean.disableInfo(tipping)}" th:name="${prehladBean.disableInfo(tipping) + ' ' + tipping.end}" th:href="@{/getVysledky(paName=${tipping.name})}" class="px-[2px] infoHref">
                                     <i class="fa fa-info-circle fa-lg"></i>
                                 </a>
                                 <a th:href="@{/edit(paName=${tipping.name})}" th:if="${jeAdmin}" class="px-[2px]">

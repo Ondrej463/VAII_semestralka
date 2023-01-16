@@ -16,6 +16,7 @@ public class UserService implements UserServiceInterface {
 
     @Override
     public void save(UserEntity user) {
+
         userRepository.save(user);
     }
 
@@ -25,9 +26,11 @@ public class UserService implements UserServiceInterface {
         UserEntity user = null;
         return optional.orElse(null);
     }
+
     @Override
-    public void deleteViaEmail(String email) {
-        userRepository.deleteById(email);
+    public void updateUserCredit(double credit, String email) {
+        this.userRepository.updateUserCredit(credit, email);
     }
+
 
 }

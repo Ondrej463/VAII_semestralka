@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="img/favicon.png" type="image/png">
+
+    <title>Výsledky</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" th:href="@{css/tailwind.style.build.css}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script th:src="@{js/vysledky.js}"></script>
+    <link rel="stylesheet" th:href="@{css/style.css}">
+
+</head>
+<body class="flex flex-col h-screen bg-gray-800 font-sans leading-normal tracking-normal overflow-x-hidden">
+<header>
+    <!--Nav-->
+    <nav aria-label="menu nav"
+         class="flex flex-row-reverse bg-gray-800 pt-2 md:pt-1 pb-1 px-1 mt-0 h-auto fixed w-full z-20 top-0">
+        <div class="flex pt-2 content-center justify-between w-auto justify-end">
+            <div class="flex items-center">
+                <a href="history" class="history py-2 px-3"><i
+                        class="fa fa-history fa-lg text-white hover:text-gray-400"></i></a>
+                <a class="text-white hover:text-gray-400 py-2 px-2" href="profile">
+                    <i class="fa fa-user fa-lg"></i>
+                    <div class="inline-block" th:text="${firstName}"></div>
+                    <div class="inline-block" th:text="${lastName}"></div>
+                </a>
+                <a href="#" th:href="@{/logout}" class="py-2 px-3">
+                    <svg class="h-8 w-8 text-white hover:text-gray-400" width="24" height="24" viewBox="0 0 24 24"
+                         stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+                         stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z"/>
+                        <path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2"/>
+                        <path d="M7 12h14l-3 -3m0 6l3 -3"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </nav>
+</header>
+
+
+<main class="flex flex-grow">
+    <div class="flex flex-grow flex-col md:flex-row mt-16">
+        <nav aria-label="alternative nav">
+            <div class="bottom-0 md:mt-16 w-full md:w-48 fixed md:left-0 md:top-0 content-center md:content-start text-left justify-between bg-gray-800 h-20 md:flex-grow md:relative z-10">
+                <ul class="list-reset flex flex-row md:flex-col pt-3 md:py-3 px-1 md:px-2 text-center md:text-left">
+                    <li class="mr-3 flex-1">
+                        <a href="informacie"
+                           class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-pink-500">
+                            <i class="fa fa-info pr-0 md:pr-3"></i><span
+                                class="pb-1 md:pb-0 text-xs md:text-base text-gray-400 md:text-gray-200 block md:inline-block">O tipovaní</span>
+                        </a>
+                    </li>
+                    <li class="mr-3 flex-1">
+                        <a href="#"
+                           class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-purple-500">
+                            <i class="fa fa-wallet pr-0 md:pr-3"></i><span
+                                class="pb-1 md:pb-0 text-xs md:text-base text-gray-400 md:text-gray-200 block md:inline-block">Tipuj</span>
+                        </a>
+                    </li>
+                    <li class="mr-3 flex-1">
+                        <a href="prehlad"
+                           class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-green-500">
+                            <i class="fas fa-chart-area pr-0 md:pr-3"></i><span
+                                class="pb-1 md:pb-0 text-xs md:text-base text-white md:text-white block md:inline-block">Prehľad</span>
+                        </a>
+                    </li>
+                    <li class="mr-3 flex-1">
+                        <a href="#"
+                           class="block py-1 md:py-3 pl-0 md:pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-red-500">
+                            <i class="fa fa-wallet pr-0 md:pr-3"></i><span
+                                class="pb-1 md:pb-0 text-xs md:text-base text-gray-400 md:text-gray-200 block md:inline-block">Správca podujatí</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <section class="flex flex-grow w-auto">
+            <div id="main" class="main-content bg-blue-100 flex-1 md:mt-2 pb-24 md:pb-5">
+
+                <div class="bg-gray-800">
+                    <div class="rounded-tl-3xl bg-gradient-to-r from-green-900 to-gray-800 p-4 shadow text-4xl text-white">
+                        <h1 class="font-bold pl-2" th:text="'Výsledky - ' + ${tipping.name}"></h1>
+                    </div>
+                </div>
+                <div class="block p-6 rounded-lg shadow-lg bg-white w-[80%] mx-auto mt-12 flex-row flex-grow">
+                    <div class="flex-row w-full px-4 mt-16">
+                        <div id="platnyTurnaj" th:if="${bean.jePlatny}">
+                            <div th:class="'flex-row w-full flex-grow items-center justify-center bg-' + ${bean.getFarbaPozadia()} + '-200 py-10'" id="odstavecPrePrvyKrat"
+                            th:if="${ bean.tipPrihlasenehoPouzivatela != null && !bean.getTipPrihlasenehoPouzivatela().vybratePeniaze}">
+                                <div class="w-full text-center text-xl" th:if="${bean.getTipPrihlasenehoPouzivatela().getVysledkyEntity().zisk == 0}">
+                                    Žiaľ nevyhrali ste, Váš zisk je 0€.
+                                </div>
+                                <div class="w-full text-center text-xl" th:if="${bean.getTipPrihlasenehoPouzivatela().getVysledkyEntity().zisk > 0}">
+                                    <div th:text="'Gratulujeme, vyhrali ste ' + ${bean.getTipPrihlasenehoPouzivatela().getVysledkyEntity().getZiskScreenFormat()} + '!'"></div>
+                                    <div>
+                                        Kliknutím na tlačidlo si prevezmete výhru na účet.
+                                    </div>
+                                </div>
+                                <div class="w-full text-center mt-4 h-8" id="prevziatButton" th:if="${bean.getTipPrihlasenehoPouzivatela().getVysledkyEntity().zisk > 0}">
+                                    <input type="submit" class="px-6 py-2.5 bg-green-800 text-white font-medium text-xs leading-tight
+                                            uppercase rounded shadow-md hover:bg-green-700 hover:shadow-lg focus:bg-green-700 focus:shadow-lg
+                                            focus:outline-none focus:ring-0 active:bg-green-700 active:shadow-lg transition duration-150 ease-in-out"
+                                            th:value="'Prevziať ' + ${bean.getTipPrihlasenehoPouzivatela().getVysledkyEntity().ziskScreenFormat}" onclick="vyberPeniaze()">
+                                </div>
+
+                                <div class="w-full text-center mt-4 h-8 hidden" id="hlaskaPoStlaceniTlacidla">
+                                    <i class="fa fa-check text-green-800 font-xl inline-block"></i>
+                                    <div class="inline-block text-xl text-gray-800 font-bold">Peniaze boli úspešne pridané na účet!</div>
+                                </div>
+                            </div>
+
+                            <div th:if="${bean.getTipPrihlasenehoPouzivatela() == null}" class="flex-row w-full flex-grow items-center justify-center bg-yellow-200 py-10">
+                                <div class="w-full text-center text-xl font-bold">
+                                    V tomto podujatí ste netipovali.
+                                </div>
+                            </div>
+
+                            <div th:if="${bean.getTipPrihlasenehoPouzivatela() != null && bean.getTipPrihlasenehoPouzivatela().vybratePeniaze}"
+                                 class="flex-row w-full flex-grow items-center justify-center bg-gray-200 py-10" id="odstavecViackratOtvorene">
+                                <div class="w-full text-center text-green-800" th:if="${bean.getTipPrihlasenehoPouzivatela().getVysledkyEntity().zisk == 0}">
+                                    Váš zisk bol 0€.
+                                </div>
+                                <div th:text="'Vyhrali ste ' + ${bean.getTipPrihlasenehoPouzivatela().getVysledkyEntity().ziskScreenFormat}" class="w-full text-center text-green-800" th:if="${bean.getTipPrihlasenehoPouzivatela().getVysledkyEntity().zisk > 0}">
+                                </div>
+                                <div class="w-full text-center mt-4" th:if="${bean.getTipPrihlasenehoPouzivatela().getVysledkyEntity().zisk > 0}">
+                                    <i class="fa fa-check text-green-800 font-base inline-block"></i>
+                                    <div class="inline-block">Peniaze boli prevzaté</div>
+                                </div>
+                            </div>
+
+                            <div class="flex-row p-10 justify-center">
+                                <div class="inline-block text-center w-full font-bold text-gray-800">
+                                    Správne čísla:
+                                </div>
+                                <div class="flex-row w-full text-center mt-4">
+                                    <input disabled="disabled" type="text" th:value="${tipping.getCisla()[0]}" maxlength="1" id="prveCislo" th:class="${tipping.getCisla()[0].equals('') ? 'bg-red-700' : 'border-green-600'} + ' flex-initial w-9 px-3 py-1.5 text-gray-700 bg-white bg-clip-padding border border-solid rounded transition ease-in-out'">
+                                    <input disabled="disabled" type="text" th:value="${tipping.getCisla()[1]}" maxlength="1" id="druheCislo" th:class="${tipping.getCisla()[1].equals('') ? 'bg-red-700' : 'border-green-600'} + ' flex-initial w-9 px-3 py-1.5 text-gray-700 bg-white bg-clip-padding border border-solid rounded transition ease-in-out'">
+                                    <input disabled="disabled" type="text" th:value="${tipping.getCisla()[2]}" maxlength="1" id="tretieCislo" th:class="${tipping.getCisla()[2].equals('') ? 'bg-red-700' : 'border-green-600'} + ' flex-initial w-9 px-3 py-1.5 text-gray-700 bg-white bg-clip-padding border border-solid rounded transition ease-in-out'">
+                                    <input disabled="disabled" type="text" th:value="${tipping.getCisla()[3]}" maxlength="1" id="stvrteCislo" th:class="${tipping.getCisla()[3].equals('') ? 'bg-red-700' : 'border-green-600'} + ' flex-initial w-9 px-3 py-1.5 text-gray-700 bg-white bg-clip-padding border border-solid rounded transition ease-in-out'">
+                                    <input disabled="disabled" type="text" th:value="${tipping.getCisla()[4]}" maxlength="1" id="piateCislo" th:class="${tipping.getCisla()[4].equals('') ? 'bg-red-700' : 'border-green-600'} + ' flex-initial w-9 px-3 py-1.5 text-gray-700 bg-white bg-clip-padding border border-solid rounded transition ease-in-out'">
+                                </div>
+                            </div>
+
+                            <div class="">
+                                <div class="flex flex-col">
+                                    <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+                                        <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
+                                            <div class="overflow-x-auto">
+                                                <table class="min-w-full">
+                                                    <thead class="border-b">
+                                                    <tr>
+                                                        <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left w-8">
+                                                            #
+                                                        </th>
+                                                        <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                                            Meno
+                                                        </th>
+                                                        <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                                            Tip
+                                                        </th>
+                                                        <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                                            Rozdiel
+                                                        </th>
+                                                        <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                                            Koef.
+                                                        </th>
+                                                        <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                                            Vklad
+                                                        </th>
+                                                        <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                                            Zisk
+                                                        </th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody th:each="vysledok : ${vysledky}">
+                                                    <tr th:class="'border-b ' + ${bean.tipPrihlasenehoPouzivatela != null && vysledok == bean.getTipPrihlasenehoPouzivatela().getVysledkyEntity() ? 'bg-green-200' : 'bg-white'}">
+                                                        <td th:text="${vysledok.poradie}" class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"></td>
+                                                        <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                                            <a th:href="@{/getMeno(paName=${vysledok.tipPrimaryKey.userEntity.email})}" th:text="${vysledok.tipPrimaryKey.userEntity.email}"></a>
+                                                        </td>
+                                                        <td th:text="${bean.getTipy(vysledok)}" class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"></td>
+                                                        <td th:text="${vysledok.rozdiel}" class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"></td>
+                                                        <td th:text="${vysledok.koeficient}" class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"></td>
+                                                        <td th:text="${bean.getVklad(vysledok)}" class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"></td>
+                                                        <td th:text="${vysledok.getZiskScreenFormat()}" class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"></td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-20" id="neplatnyTurnaj" th:if="${!bean.jePlatny}">
+                            <div class="h-auto p-10 bg-red-300" th:if="${bean.getTipPrihlasenehoPouzivatela() != null}">
+                                <div class="text-center font-bold text-xl" th:if="${!bean.tipPrihlasenehoPouzivatela.vybratePeniaze}"
+                                    th:text="'Ľutujeme, ' + ${tipping.getName()} + ' bol zrušený z dôvodu nízkeho počtu tipov. Kliknutím na tlačidlo vám vrátime váš vklad ' + ${bean.tipPrihlasenehoPouzivatela.vkladScreenFormat} + ' späť na účet.'">
+                                </div>
+                                <div class="text-center mt-6 h-8" th:if="${!bean.getTipPrihlasenehoPouzivatela().vybratePeniaze}" id="vratitPeniazeButton">
+                                    <input type="submit" class="px-6 py-2.5 bg-red-800 text-white font-medium text-base leading-tight
+                                            uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg
+                                             focus:outline-none focus:ring-0 active:bg-red-700 active:shadow-lg transition duration-150 ease-in-out"
+                                            th:value="'Vrátiť ' + ${bean.getTipPrihlasenehoPouzivatela().vkladScreenFormat} + '!'" onclick="vratPeniaze()">
+                                </div>
+                                <div class="text-center font-bold text-xl" th:if="${bean.getTipPrihlasenehoPouzivatela().vybratePeniaze}"
+                                     th:text="'Ľutujeme, ' + ${tipping.getName()} + ' bol zrušený z dôvodu nízkeho počtu tipov.'">
+                                </div>
+                                <div class="text-center mt-6 h-8" th:if="${bean.getTipPrihlasenehoPouzivatela().vybratePeniaze}">
+                                    <i class="fa fa-check text-green-600 text-xl inline-block"></i>
+                                    <div class="inline-block text-xl font-bold text-green-600" th:text="'Vrátili sme Vám váš vklad ' + ${bean.getTipPrihlasenehoPouzivatela().vkladScreenFormat}"></div>
+                                </div>
+                                <div class="text-center mt-6 h-8 hidden" id="vratenePeniazeHlaska">
+                                    <i class="fa fa-check text-green-600 text-xl inline-block"></i>
+                                    <div class="inline-block text-xl font-bold text-green-600">Peniaze boli vrátené na účet!</div>
+                                </div>
+                            </div>
+                            <div th:if="${bean.tipPrihlasenehoPouzivatela == null}" class="h-auto p-10 bg-red-300 mt-8">
+                                <div class="text-center font-bold text-xl" th:text="${tipping.getName()} + ' bol zrušený z dôvodu nízkeho počtu tipov.'"></div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+            </div>
+        </section>
+    </div>
+</main>
+</body>
+</html>

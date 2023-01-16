@@ -36,20 +36,15 @@ public class NewUserValidator {
         return true;
     }
     public boolean isSomeFieldExceptForPasswordInError() {
-        boolean vysledok = false;
         for (String message : this.messages.keySet()) {
             if (!this.messages.get(message).equals("")) {
                 Fields fields = Fields.getField(message);
-                if (fields == Fields.PASSWORD || fields == Fields.REPEAT_PASSWORD) {
-                    return false;
-                }
-                if (fields != Fields.PASSWORD
-                    && fields != Fields.REPEAT_PASSWORD) {
-                    vysledok = true;
+                if (fields != Fields.PASSWORD && fields != Fields.REPEAT_PASSWORD) {
+                    return true;
                 }
             }
         }
-        return vysledok;
+        return false;
     }
     private void validateName(String name) {
       if (name.length() == 0) {

@@ -9,7 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.List;
 
 @Controller
 public class PrehladControler {
@@ -37,6 +36,15 @@ public class PrehladControler {
     ) {
         redirectAttributes.addFlashAttribute("name", name);
         return "redirect:/spravcaPodujati";
+    }
+
+    @RequestMapping("/getVysledky")
+    public String getVysledky(
+            @RequestParam(name = "paName", required = false) String name,
+            RedirectAttributes redirectAttributes
+    ) {
+        redirectAttributes.addFlashAttribute("nazov", name);
+        return "redirect:/vysledky";
     }
 
     @RequestMapping("/viewPodujatie")

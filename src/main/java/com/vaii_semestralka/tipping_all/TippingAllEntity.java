@@ -4,13 +4,17 @@ import com.vaii_semestralka.converter.DateTimeConverter;
 import com.vaii_semestralka.druh.DruhEntity;
 import com.vaii_semestralka.tip.TipEntity;
 import com.vaii_semestralka.koeficienty.KoeficientEntity;
+import com.vaii_semestralka.vysledky.VysledkyEntity;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 
 @Entity
@@ -37,6 +41,10 @@ public class TippingAllEntity implements Serializable {
 
     @OneToMany(mappedBy = "koeficientPrimaryKey.tippingAllEntity", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @Getter private Set<KoeficientEntity> koefs;
+
+    @OneToMany(mappedBy = "tipPrimaryKey.tippingAllEntity", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @Getter private Set<VysledkyEntity> vysledky;
+
     public String getBeggining() {
         return this.beggining == null ? null : DateTimeConverter.formatDateTime(this.beggining);
     }
@@ -77,6 +85,26 @@ public class TippingAllEntity implements Serializable {
     }
     public void setBegginingDateTime(LocalDateTime date) {
         this.beggining = date;
+    }
+
+    public List<KoeficientEntity> getKoeficientsInOrder() {
+        return this.getKoefs().stream()
+                .sorted(Comparator.comparingInt(o -> o.getKoeficientPrimaryKey().getOd_())).collect(Collectors.toList());
+    }
+
+    public boolean maDostatokTipov() {
+        return this.getTips().size() >= this.getDruh().getMin_pocet_tipov();
+    }
+
+    public String[] getCisla() {
+        String[] cisla = {this.first_number + "", this.second_number + "", this.third_number + "", this.fourth_number + ""
+                , this.fifth_number + ""};
+        for (int i = 0; i < cisla.length; i++) {
+            if (i >= this.druh.getPocet_cislic()) {
+                cisla[i] = "";
+            }
+        }
+        return cisla;
     }
 }
 

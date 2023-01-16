@@ -1,11 +1,15 @@
 package com.vaii_semestralka.beans;
 
 import com.vaii_semestralka.LoggedInUser;
+import com.vaii_semestralka.users.Hash;
 import com.vaii_semestralka.users.UserEntity;
 import com.vaii_semestralka.users.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.ui.Model;
+
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 
 @Configuration
 public class LoginBean {
@@ -13,7 +17,7 @@ public class LoginBean {
     private String emailErrorMessage;
     private String passwordErrorMessage;
 
-    public boolean validate(String email, String password) {
+    public boolean validate(String email, String password) throws NoSuchAlgorithmException, InvalidKeySpecException {
         boolean vysledok = true;
         UserEntity userEntity = this.userService.getByEmail(email);
         if (userEntity == null) {
@@ -22,7 +26,7 @@ public class LoginBean {
             vysledok = false;
         } else {
             this.emailErrorMessage = "";
-            if (!userEntity.getPasswd().equals(password)) {
+            if (!userEntity.getPasswd().equals(Hash.hashPassword(password, userEntity.getSalt()))) {
                 this.passwordErrorMessage = "Zadali ste nerpávne heslo!";
                 vysledok = false;
             } else {

@@ -93,7 +93,7 @@
                         <div class="w-auto md:flex-initial md:w-1/3 my-5 md:my-0 mx-10 md:mx-5 p-5 md:p-10 rounded-3xl bg-blue-500">
                             <div class="text-center text-white">
                                 <h1 class="text-2xl font-bold pb-2">Dátum narodenia</h1>
-                                <h1 class="text-2xl block" th:text="${user.born_date}"></h1>
+                                <h1 class="text-2xl block" th:text="${user.getBornDateScreenFormat()}"></h1>
                             </div>
                         </div>
                         <!--Email-->
@@ -106,7 +106,7 @@
                     </div>
                     <div class="md:flex md:justify-center md:py-5">
                         <!--Adresa-->
-                        <div class="w-auto md:flex-initial md:w-1/3 mb-5 md:mb-0 mx-10 md:mx-5 py-5 px-2 md:p-5 md:p-10 rounded-3xl bg-blue-500">
+                        <div class="w-auto md:flex-initial md:w-1/3 my-5 md:my-0 mx-10 md:mx-5 p-5 md:p-10 rounded-3xl bg-blue-500">
                             <div class="text-center text-white">
                                 <h1 class="text-2xl font-bold pb-2">Adresa</h1>
                                 <h1 class="text-2xl block" th:text="${user.adress}" ></h1>
@@ -116,7 +116,7 @@
                         <div class="w-auto md:flex-initial md:w-1/3 my-5 md:my-0 mx-10 md:mx-5 p-5 md:p-10 rounded-3xl bg-blue-500">
                             <div class="text-center text-white">
                                 <h1 class="text-2xl font-bold pb-2">Kredit</h1>
-                                <h1 class="text-2xl block" th:text="${user.credit} + ' eur'"></h1>
+                                <h1 class="text-2xl block" th:text="${user.getCreditScreenFormat()}"></h1>
                             </div>
                         </div>
                     </div>

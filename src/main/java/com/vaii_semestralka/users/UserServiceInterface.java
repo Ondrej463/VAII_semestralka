@@ -6,5 +6,5 @@ public interface UserServiceInterface {
     List<UserEntity> getAllUsers();
     void save(UserEntity user);
     UserEntity getByEmail(String email);
-    void deleteViaEmail(String email);
+    void updateUserCredit(double credit, String email);
 }

@@ -7,6 +7,8 @@ import com.vaii_semestralka.tip.TipPrimaryKey;
 import com.vaii_semestralka.tip.TipService;
 import com.vaii_semestralka.tipping_all.TippingAllEntity;
 import com.vaii_semestralka.tipping_all.TippingAllService;
+import com.vaii_semestralka.users.UserEntity;
+import com.vaii_semestralka.users.UserService;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,7 @@ public class TipBean {
     @Autowired private TipService tipService;
     @Autowired private TippingAllService tippingAllService;
 
+    @Autowired private UserService userService;
     @Getter @Setter TippingAllEntity tippingAllEntity;
     private TipPrimaryKey tipPrimaryKeys;
     @Getter @Setter private TipEntity tipEntity;
@@ -37,6 +40,10 @@ public class TipBean {
         tipEntity.setWhen(DateTimeConverter.formatDateTime(LocalDateTime.now()));
         LoggedInUser.getActualUser().addTip(tipEntity);
         LoggedInUser.getActualUser().setCredit(LoggedInUser.getActualUser().getCredit() - tipEntity.getVklad());
+
+        UserEntity user = this.userService.getByEmail(LoggedInUser.getActualUser().getEmail());
+        user.setCredit(LoggedInUser.getActualUser().getCredit());
+        this.userService.save(user);
         this.tipService.save(tipEntity);
     }
 

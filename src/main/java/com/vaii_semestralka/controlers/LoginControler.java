@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
+
 @Controller
 public class LoginControler {
     @Autowired private LoginBean loginBean;
@@ -23,7 +26,7 @@ public class LoginControler {
     @PostMapping("/")
     public String postIndex(@RequestParam(value="email", required = false) String email,
                             @RequestParam(value="password", required = false) String password,
-                            Model model) {
+                            Model model) throws NoSuchAlgorithmException, InvalidKeySpecException {
         if (this.loginBean.validate(email, password)) {
             loginBean.login(email);
             return "redirect:/informacie";

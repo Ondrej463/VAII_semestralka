@@ -49,8 +49,4 @@ public class PodujatieBean {
             return "red";
         }
     }
-    public List<KoeficientEntity> getSortedKoeficients() {
-        return this.tippingAllEntity.getKoefs().stream()
-                .sorted(Comparator.comparingInt(o -> o.getKoeficientPrimaryKey().getOd_())).collect(Collectors.toList());
-    }
 }

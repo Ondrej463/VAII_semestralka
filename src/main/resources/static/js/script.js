@@ -33,6 +33,7 @@ window.onload = function () {
         if (document.getElementById("selectDruh").value !== "hlaska") {
             document.getElementById("datumy").className = "mb-4";
             document.getElementById("cisla").className = "mb-4";
+            init_cisla();
         }
         select.addEventListener("change", zmenaSelectOptions);
     }
@@ -80,6 +81,21 @@ function zmenaSelectOptions() {
         document.getElementById("datumy").className = "hidden";
         document.getElementById("cisla").className = "hidden";
     }
+}
+
+function init_cisla() {
+    $.ajax ({
+        type: "POST",
+        url: 'http://localhost:8080/X-Tipping/getPocetCislic',
+        dataType: "json",
+        contentType: "application/json",
+        success: function(data) {
+            zobrazCisla(parseInt(data.response[0]));
+        },
+        error: function() {
+            alert("error");
+        }
+    });
 }
 
 function zobrazCisla(pocet) {
@@ -453,7 +469,7 @@ function dateDiffInYears(dateold, datenew) {
 }
 
 function validateSpravcaPodujatiForm() {
-    vysledok = true;
+    var vysledok = true;
     const nazov = document.getElementById("name");
     const begin = document.getElementById("beggining");
     const end = document.getElementById("end");

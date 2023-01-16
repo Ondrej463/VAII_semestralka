@@ -1,6 +1,7 @@
 package com.vaii_semestralka.tip;
 
 import com.vaii_semestralka.converter.DateTimeConverter;
+import com.vaii_semestralka.vysledky.VysledkyEntity;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,6 +24,12 @@ public class TipEntity implements Serializable {
     @Getter @Setter private int fourth_number;
     @Getter @Setter private int fifth_number;
 
+    @Column(name="vybrate_peniaze")
+    @Getter @Setter private boolean vybratePeniaze;
+
+    @OneToOne(mappedBy = "tipEntity")
+    @Getter @Setter VysledkyEntity vysledkyEntity;
+
     public TipEntity() {
 
     }
@@ -31,5 +38,26 @@ public class TipEntity implements Serializable {
     }
     public void setWhen(String date) {
         this.when = DateTimeConverter.parseDateTime(date);
+    }
+
+    public String getVkladScreenFormat() {
+        String vkladS = this.vklad + "";
+        if (vkladS.substring(vkladS.indexOf('.') + 1).length() == 1) {
+            return vkladS.concat("0€");
+        }
+        return vkladS.concat("€");
+    }
+
+    public String getCisla() {
+        String vypis = "";
+        String[] cisla = {this.first_number + "", this.second_number + "", this.third_number + "", this.fourth_number + ""
+                , this.fifth_number + ""};
+        for (int i = 0; i < cisla.length; i++) {
+            if (i < this.getTipPrimaryKeys().getTippingAllEntity().getDruh().getPocet_cislic()) {
+                vypis = vypis.concat(cisla[i] + " ");
+            }
+        }
+        vypis = vypis.substring(0, vypis.length() - 1);
+        return vypis;
     }
 }

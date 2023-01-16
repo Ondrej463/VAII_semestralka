@@ -82,7 +82,7 @@
 
         <div class="bg-gray-800">
           <div class="rounded-tl-3xl bg-gradient-to-r from-green-900 to-gray-800 p-4 shadow text-4xl text-white">
-            <h1 class="font-bold pl-2">Prehľad</h1>
+            <h1 class="font-bold pl-2">Moje tipy</h1>
           </div>
         </div>
 
@@ -94,39 +94,27 @@
                 <span class="text-gray-300">Názov</span>
               </th>
               <th class="lg:w-1/6 py-2 px-10 lg:px-0">
-                <span class="text-gray-300">Začiatok</span>
+                <span class="text-gray-300">Tip</span>
               </th>
               <th class="lg:w-1/12 py-2 px-10 lg:px-0">
-                <span class="text-gray-300">Počet tipujúcich</span>
+                <span class="text-gray-300">Vklad</span>
               </th>
               <th class="lg:w-1/6 py-2 px-10 lg:px-0">
-                <span class="text-gray-300">Stav</span>
+                <span class="text-gray-300">Výhra</span>
               </th>
               <th class="lg:w-1/12 py-2 px-10 lg:px-0">
-                <span class="text-gray-300">Akcie</span>
+                <span class="text-gray-300">Stav</span>
               </th>
             </tr>
             </thead>
             <!-- tipping -->
             <tbody th:each="tipping : ${tippings}" class="bg-gray-200">
             <tr class="bg-white border-4 border-gray-200">
-              <td th:text="${tipping.name}" class="py-2 text-center font-semibold px-2"></td>
-              <td th:text="${tipping.getBegginingScreenFormat()}" class="py-2 text-center px-2"></td>
-              <td th:text="${mojeTipyBean.getNumberOfTips(tipping.name)}" class="text-center py-2"></td>
-              <td class="text-center py-2 px-2">
-                <div th:class="'border-green-800 rounded-md bg-' + ${mojeTipyBean.getColor(tipping)} + '-800 w-20 h-auto mx-auto'">
-                  <div class="text-white py-1 text-center" th:text="${mojeTipyBean.getPopisStavu(tipping)}"></div>
-                </div>
-              </td>
-
-              <td class="text-center py-2 px-2">
-                <a th:href="@{/tipuj(paName=${tipping.name})}" class="px-[2px]">
-                  <i class="fa fa-external-link fa-lg"></i>
-                </a>
-                <a href="#" class="px-[2px]">
-                  <i class="fa fa-info-circle fa-lg"></i>
-                </a>
-              </td>
+              <td th:text="${tipping.getName()}" class="py-2 text-center font-semibold px-2"></td>
+              <td th:text="${bean.getTipEntity(tipping).getCisla()}" class="py-2 text-center font-semibold px-2"></td>
+              <td th:text="${bean.getTipEntity(tipping).vkladScreenFormat}" class="py-2 text-center px-2"></td>
+              <td th:text="${bean.getZisk(tipping)}" class="text-center py-2"></td>
+              <td th:text="${bean.getStavTipu(tipping)[0]}" th:class="'text-center py-2 bg-' + ${bean.getStavTipu(tipping)[1]} + '200'"></td>
             </tr>
             </tbody>
           </table>

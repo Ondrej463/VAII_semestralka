@@ -20,7 +20,7 @@ public class PodujatieControler {
 
         model.addAttribute("tipping", this.podujatieBean.getTippingAllEntity());
         model.addAttribute("bean", this.podujatieBean);
-        model.addAttribute("koeficienty", this.podujatieBean.getSortedKoeficients());
+        model.addAttribute("koeficienty", this.podujatieBean.getTippingAllEntity().getKoeficientsInOrder());
         return "podujatie";
     }
 

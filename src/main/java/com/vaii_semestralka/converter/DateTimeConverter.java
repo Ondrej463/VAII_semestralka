@@ -13,7 +13,7 @@ public class DateTimeConverter {
     private static final SimpleDateFormat DATE_FORMATTER = new SimpleDateFormat("yyyy-MM-dd");
     private static final SimpleDateFormat DATE_FORMATER_SECONDS = new SimpleDateFormat("yyyy-MM-dd HH:mm");
     private static final DateTimeFormatter SCREEN_OUTPUT_DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
-
+    private static final SimpleDateFormat SCREEN_OUTPUT_DATE_FORMATTER = new SimpleDateFormat("dd.MM.yyyy");
     public static LocalDateTime parseDateTime(String date) {
         return LocalDateTime.parse(date, DATE_TIME_FORMATTER);
     }
@@ -40,5 +40,8 @@ public class DateTimeConverter {
     }
     public static String getDateTimeStringFromDate(Calendar calendar) {
         return DATE_FORMATER_SECONDS.format(calendar.getTime());
+    }
+    public static String getDateScreenFormat(Date date) {
+        return SCREEN_OUTPUT_DATE_FORMATTER.format(date);
     }
 }

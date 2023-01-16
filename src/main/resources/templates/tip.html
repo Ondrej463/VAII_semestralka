@@ -89,13 +89,13 @@
           </div>
         </div>
         <div class="block p-6 rounded-lg shadow-lg bg-white w-[80%] mx-auto mt-36 h-1/2 flex-row flex-grow">
-          <div class="mt-10">
+          <div class="mt-4">
             <h1 th:text="${tippingAllEntity.name}" class="text-5xl text-center font-bold mb-4"></h1>
             <h3 th:text="${tippingAllEntity.getBegginingScreenFormat()} + ' - ' + ${tippingAllEntity.getEndScreenFormat()}" class="text-center mb-2"></h3>
           </div>
 
           <form method="post" th:object="${tip}" th:action="@{/confirmTip}" id="tipForm">
-            <div class="flex flex-grow mt-8 justify-evenly">
+            <div class="flex flex-grow mt-10 justify-evenly">
               <div class="flex-row w-auto">
 
                 <div class="mb-2">

@@ -10,8 +10,33 @@ window.onload = function () {
     for (let i = 0; i < hrefs.length; i++) {
         hrefs[i].addEventListener("click", potvrd);
     }
+    kontrolujZobrazenieInfo();
 }
 
+function kontrolujZobrazenieInfo() {
+    setTimeout(function () {
+        let infoHrefs = document.getElementsByClassName("infoHref");
+        for (let i = 0; i < infoHrefs.length; i++) {
+            let jeSkryty = infoHrefs[i].name.substring(0, infoHrefs[i].name.indexOf(' '));
+            if (jeSkryty === "true") {
+                let riadok = infoHrefs[i].parentElement.parentElement;
+                let begin = riadok.children[1].innerHTML;
+                let stav = riadok.children[3].innerText;
+                let beginDate = Date.parse(begin.substring(6, 10) + "-" + begin.substring(3, 5) + "-" + begin.substring(0, 2) + " "
+                 + begin.substring(11, 13) + ":" + begin.substring(14, 16));
+                let koniec = infoHrefs[i].name.substring(infoHrefs[i].name.indexOf(' ') + 1);
+                let koniecDate = Date.parse(koniec);
+                if (new Date() - koniecDate > 0) {
+                    window.location.reload();
+                } else if (stav === "Nezačal" && new Date() - beginDate > 0) {
+                    window.location.reload();
+                }
+            }
+        }
+
+        kontrolujZobrazenieInfo();
+    }, 5000);
+}
 
 function zobrazOkno() {
     setTimeout(function() {

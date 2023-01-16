@@ -13,9 +13,13 @@ public class ProfileControler {
 
     @GetMapping("/profile")
     public String getProfile(Model model) {
+        if (model.containsAttribute("email")) {
+            model.addAttribute("user", this.service.getByEmail(model.getAttribute("email").toString()));
+        } else {
+            model.addAttribute("user", LoggedInUser.getActualUser());
+        }
         model.addAttribute("user_firstname", LoggedInUser.getActualUser().getFirst_name());
         model.addAttribute("user_lastname", LoggedInUser.getActualUser().getLast_name());
-        model.addAttribute("user", LoggedInUser.getActualUser());
         return "profile";
     }
 }

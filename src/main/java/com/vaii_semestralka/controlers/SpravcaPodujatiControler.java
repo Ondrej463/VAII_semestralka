@@ -92,6 +92,11 @@ public class SpravcaPodujatiControler {
         return new RestReponse(RestReponse.OK, data);
     }
 
+    @RequestMapping(value = "/getPocetCislic", method = RequestMethod.POST)
+    public @ResponseBody RestReponse getPocetCislic() {
+        return new RestReponse(RestReponse.OK, this.spravcaPodujatiBean.getTipping().getDruh().getPocet_cislic() + "");
+    }
+
     @RequestMapping(value = "/setDruh", method = RequestMethod.POST)
     public @ResponseBody RestReponse setDruh(@RequestBody String druhNazov) {
         this.spravcaPodujatiBean.setDruh(druhNazov);
