@@ -1,6 +1,7 @@
-document.ready = function () {
-
-}
+$(document).ready(function() {
+    $('header').load('header');
+    $('nav').load('navBar');
+});
 
 window.onload = function () {
     document.getElementById("vklad").addEventListener("change", setTwoNumberDecimal);

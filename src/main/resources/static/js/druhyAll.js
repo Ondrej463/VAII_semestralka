@@ -4,6 +4,11 @@ window.onload = function () {
     select.addEventListener("change", setData);
 }
 
+$(document).ready(function() {
+    $('header').load('header');
+    $('nav').load('navBar');
+});
+
 function setData() {
     let select = document.getElementById("vyberDruh");
     $.ajax ({

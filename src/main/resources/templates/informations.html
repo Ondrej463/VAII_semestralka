@@ -8,75 +8,20 @@
     <link rel="shortcut icon" href="img/favicon.png" type="image/png">
 
     <title>Informácie</title>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script th:src="@{js/script.js}"></script>
     <link rel="stylesheet" th:href="@{css/animate.css}">
     <link rel="stylesheet" th:href="@{css/style.css}">
 </head>
 <body class="flex flex-col h-screen bg-gray-800 font-sans leading-normal tracking-normal overflow-x-hidden">
-<header>
-    <!--Nav-->
-    <nav aria-label="menu nav"
-         class="flex flex-row-reverse bg-gray-800 pt-2 md:pt-1 pb-1 px-1 mt-0 h-auto fixed w-full z-20 top-0">
-        <div class="flex pt-2 content-center justify-between w-auto justify-end">
-            <div class="flex items-center">
-                <a href="history" class="history py-2 px-3"><i
-                        class="fa fa-history fa-lg text-white hover:text-gray-400"></i></a>
-                <a class="text-white hover:text-gray-400 py-2 px-2" href="profile">
-                    <i class="fa fa-user fa-lg"></i>
-                    <div class="inline-block" th:text="${user_firstname}"></div>
-                    <div class="inline-block" th:text="${user_lastname}"></div>
-                </a>
-                <a href="#" th:href="@{/logout}" class="py-2 px-3">
-                    <svg class="h-8 w-8 text-white hover:text-gray-400" width="24" height="24" viewBox="0 0 24 24"
-                         stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
-                         stroke-linejoin="round">
-                        <path stroke="none" d="M0 0h24v24H0z"/>
-                        <path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2"/>
-                        <path d="M7 12h14l-3 -3m0 6l3 -3"/>
-                    </svg>
-                </a>
-            </div>
-        </div>
-    </nav>
-</header>
 
+<header id="header">
+</header>
 
 <main class="flex flex-grow">
     <div class="flex flex-grow flex-col md:flex-row mt-16">
-        <nav aria-label="alternative nav">
-            <div class="bottom-0 md:mt-16 w-full md:w-48 fixed md:left-0 md:top-0 content-center md:content-start text-left justify-between bg-gray-800 h-20 md:flex-grow md:relative z-10">
-                <ul class="list-reset flex flex-row md:flex-col pt-3 md:py-3 px-1 md:px-2 text-center md:text-left">
-                    <li class="mr-3 flex-1">
-                        <a href="informacie"
-                           class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-pink-500">
-                            <i class="fa fa-info pr-0 md:pr-3"></i><span
-                                class="pb-1 md:pb-0 text-xs md:text-base text-gray-400 md:text-gray-200 block md:inline-block">O tipovaní</span>
-                        </a>
-                    </li>
-                    <li class="mr-3 flex-1">
-                        <a href="#"
-                           class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-purple-500">
-                            <i class="fa fa-wallet pr-0 md:pr-3"></i><span
-                                class="pb-1 md:pb-0 text-xs md:text-base text-gray-400 md:text-gray-200 block md:inline-block">Tipuj</span>
-                        </a>
-                    </li>
-                    <li class="mr-3 flex-1">
-                        <a href="prehlad"
-                           class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-green-500">
-                            <i class="fas fa-chart-area pr-0 md:pr-3"></i><span
-                                class="pb-1 md:pb-0 text-xs md:text-base text-white md:text-white block md:inline-block">Prehľad</span>
-                        </a>
-                    </li>
-                    <li class="mr-3 flex-1">
-                        <a href="druhyAll"
-                           class="block py-1 md:py-3 pl-0 md:pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-red-500">
-                            <i class="fa fa-wallet pr-0 md:pr-3"></i><span
-                                class="pb-1 md:pb-0 text-xs md:text-base text-gray-400 md:text-gray-200 block md:inline-block">Druhy podujatí</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
+        <nav aria-label="alternative nav" id="nav">
         </nav>
         <section class="flex flex-grow w-auto">
             <div id="main" class="main-content bg-blue-100 flex-1 md:mt-2 pb-24 md:pb-5">
@@ -101,9 +46,10 @@
                                 </div>
                                 <div>
                                     <h1 class="uppercase font-bold text-xl block mb-3 text-gray-600">Môj prvý tip</h1>
-                                    <p class="text-gray-600">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                        Unde perspiciatis dicta labore nulla beatae quaerat quia
-                                        incidunt laborum aspernatur...</p>
+                                    <p class="text-gray-600">Kliknite na prehľad všetkých tipov, ktorý je v ponuke vľavo v
+                                    navigačnom paneli. Zobrazia sa v tabuľke všetky tipérske podujatia. Môžete kliknúť na ľubovolné
+                                    podujatie, následne sa vám zobrazia informácie o podujatí - koľko číslic sa tipuje, koľko ľudí aktuálne tipovalo, atď.
+                                    Po kliknutí na tlačidlo tipuj, sa Vám zobrazí okno, kde zadáte tipované číslice a váš vklad.</p>
                                 </div>
                             </div>
                         </div>
@@ -121,9 +67,11 @@
                                 <div>
                                     <h3 class="uppercase font-bold text-xl block mb-3 text-gray-600">Čo môžem
                                         vyhrať?</h3>
-                                    <p class="text-gray-600">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                        Unde perspiciatis dicta labore nulla beatae quaerat quia
-                                        incidunt laborum aspernatur...</p>
+                                    <p class="text-gray-600">Víťazstvo je z najväčšej časti založené na šťastí.
+                                        Tipuje sa číselná kombinácia, počet tipovaných číslic závisí od typu podujatia.
+                                        Pri tipovaní je nutné vsadiť určitú čistku peňazí. V prípade že uspejete, získate
+                                        násobok vkladu v závislostí od vopred určeného koeficientu.
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -140,9 +88,10 @@
                                 </div>
                                 <div>
                                     <h3 class="uppercase font-bold text-xl block mb-3 text-gray-600">Moja história</h3>
-                                    <p class="text-gray-600">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                        Unde perspiciatis dicta labore nulla beatae quaerat quia
-                                        incidunt laborum aspernatur...</p>
+                                    <p class="text-gray-600">Po kliknutí možnosti "Moja história", ktorá sa nachádza vľavo v navigačnom bare
+                                        si môžete pozrieť všetky svoje tipy, ktoré ste uskutočnili. Viete zistiť aké čísla ste tipovali na danom tipérskom podujatí,
+                                        koľko ste stavili peňazí, koľko peňazí ste vyhrali, ...
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -160,9 +109,9 @@
                                 <div>
                                     <h3 class="uppercase font-bold text-xl block mb-3 text-gray-600">Informácie o
                                         mne</h3>
-                                    <p class="text-gray-600">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                        Unde perspiciatis dicta labore nulla beatae quaerat quia
-                                        incidunt laborum aspernatur...</p>
+                                    <p class="text-gray-600">Informácie o vás si zobrazíte kliknutím na svoje meno v hornej lište vpravo hore. Zobrazí sa vám
+                                    váš profil s vašimi osobnými údajmi. Navyše vidíte váš kredit - aktuálny počet eur na účte. Po zaregistrovaní
+                                    automaticky získavate 50eur bonus!</p>
                                 </div>
                             </div>
                         </div>
@@ -179,9 +128,8 @@
                                 </div>
                                 <div>
                                     <h3 class="uppercase font-bold text-xl block mb-3 text-gray-600">Prehľad tipov</h3>
-                                    <p class="text-gray-600">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                        Unde perspiciatis dicta labore nulla beatae quaerat quia
-                                        incidunt laborum aspernatur...</p>
+                                    <p class="text-gray-600">Prehľad tipov je tabuľka všetkých tipov, pri každom tipérskom podujatí je uvedené
+                                    kedy začína, v akom je stave - nezačal, prebieha alebo skončil.</p>
                                 </div>
                             </div>
                         </div>
@@ -199,9 +147,10 @@
                                 <div>
                                     <h3 class="uppercase font-bold text-xl block mb-3 text-gray-600">Základné
                                         pravidlá</h3>
-                                    <p class="text-gray-600">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                        Unde perspiciatis dicta labore nulla beatae quaerat quia
-                                        incidunt laborum aspernatur...</p>
+                                    <p class="text-gray-600">Pred vašim tipom je dôležité si všimnúť koeficienty, ktoré sú uvedené v popise tipérskej udalosti.
+                                    Koeficient je číslo, ktoré môže byť násobok vášho vkladu, pokiaľ sa umiestnite v uvedenom rozmedzí. Takže ak na miestach 2 - 5
+                                    je koeficient 2, znamená to, že ak stavíte 10eur a skončíte na niektorom z týchto miest, vyhrávate 20eur! Umiestnenie sa vypočítava
+                                    spravodlivo podľa relatívnej veľkosti odchylky tipovaných čísel od správnych čísel.</p>
                                 </div>
                             </div>
                         </div>

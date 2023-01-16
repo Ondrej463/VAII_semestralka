@@ -1,6 +1,11 @@
 var nameOFDeletedEvent = "";
 var reloadNeed = false;
 
+$(document).ready(function() {
+    $('header').load('header');
+    $('nav').load('navBar');
+});
+
 window.onload = function () {
     document.body.addEventListener("click", zavriOknoCheck);
     document.getElementById("okButton").addEventListener("click", zavriOkno);

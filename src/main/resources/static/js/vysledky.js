@@ -1,3 +1,8 @@
+$(document).ready(function() {
+    $('header').load('header');
+    $('nav').load('navBar');
+});
+
 //https://stackoverflow.com/questions/43043113/how-to-force-reloading-a-page-when-using-browser-back-button
 window.addEventListener( "pageshow", function ( event ) {
     var historyTraversal = event.persisted ||

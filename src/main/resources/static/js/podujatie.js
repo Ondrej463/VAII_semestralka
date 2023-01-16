@@ -1,3 +1,8 @@
+$(document).ready(function() {
+    $('header').load('header');
+    $('nav').load('navBar');
+});
+
 window.onload = function () {
     if (document.getElementById("linkTipuj").getAttribute("disabled") === "disabled") {
         document.getElementById("linkTipuj").href = "#";
