@@ -15,15 +15,6 @@ window.addEventListener( "pageshow", function ( event ) {
 });
 
 window.onload = function () {
-    let registerForm = document.getElementById("registerForm");
-    if (registerForm != null) {
-        registerForm.addEventListener("submit", (e) => {
-            if (!validateRegistration()) {
-                e.preventDefault();
-            }
-        });
-    }
-
     let loginForm = document.getElementById("loginForm");
     if (loginForm != null) {
         loginForm.addEventListener("submit", (e) => {

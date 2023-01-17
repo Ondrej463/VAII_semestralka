@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 
+
 @Controller
 public class RegisterControler {
     @Autowired private RegisterBean registerBean;
@@ -21,7 +22,7 @@ public class RegisterControler {
         return "register";
     }
 
-    @PostMapping(value = "/register")
+    @PostMapping(value = "/registerUser")
     public String postRegistracia(@ModelAttribute("user") UserEntity user,
                                   @RequestParam(name = "repeatPassword", required = false) String repeatPassword,
                                   Model model) throws NoSuchAlgorithmException, InvalidKeySpecException {
@@ -33,7 +34,7 @@ public class RegisterControler {
         } else {
             user.setSalt(Hash.newSalt());
             user.setPasswd(Hash.hashPassword(user.getPasswd(), user.getSalt()));
-            user.setCredit(50000);
+            user.setCredit(5000);
             this.registerBean.save(user);
             return "redirect:/";
         }
