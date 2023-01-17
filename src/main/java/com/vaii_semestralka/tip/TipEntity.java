@@ -39,7 +39,9 @@ public class TipEntity implements Serializable {
     public void setWhen(String date) {
         this.when = DateTimeConverter.parseDateTime(date);
     }
-
+    public void setWhenDateTime(LocalDateTime date) {
+        this.when = date;
+    }
     public String getVkladScreenFormat() {
         String vkladS = this.vklad + "";
         if (vkladS.substring(vkladS.indexOf('.') + 1).length() == 1) {

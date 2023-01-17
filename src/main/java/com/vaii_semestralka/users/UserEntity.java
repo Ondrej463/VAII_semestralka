@@ -1,6 +1,5 @@
 package com.vaii_semestralka.users;
 
-import com.vaii_semestralka.LoggedInUser;
 import com.vaii_semestralka.converter.DateTimeConverter;
 import com.vaii_semestralka.tip.TipEntity;
 import com.vaii_semestralka.vysledky.VysledkyEntity;
@@ -17,7 +16,7 @@ public class UserEntity {
     @Getter @Setter private String email;
     @Getter @Setter private String first_name;
     @Getter @Setter private String last_name;
-    private Date born_date;
+    @Setter private Date born_date;
     @Getter @Setter private String passwd;
     @Getter @Setter private byte[] salt;
     @Getter @Setter private String adress;
@@ -33,7 +32,7 @@ public class UserEntity {
     public String getBorn_date() {
         return this.born_date == null ? null : DateTimeConverter.formatDate(this.born_date);
     }
-    public void setBorn_date(String date) {
+    public void setBorn_dateByString(String date) {
         this.born_date = DateTimeConverter.parseDate(date);
     }
     public Role getUserRole() {

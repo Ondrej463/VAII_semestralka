@@ -38,4 +38,9 @@ public class KoeficientService implements KoeficientServiceInterface {
     public void deleteAllByName(String name) {
         this.koeficientRepository.delByName(name);
     }
+
+    @Override
+    public void saveAll(List<KoeficientEntity> koefs) {
+        this.koeficientRepository.saveAll(koefs);
+    }
 }

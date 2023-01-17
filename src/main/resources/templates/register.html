@@ -7,7 +7,7 @@
     <link rel="shortcut icon" href="img/favicon.png" type="image/png">
     <title>Register</title>
     <link rel="stylesheet" th:href="@{css/style.css}">
-    <script th:src="@{js/script.js}"></script>
+    <script th:src="@{js/registration.js}"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
 </head>
 <body>
@@ -16,7 +16,7 @@
         <div class="nadpis">
             <h1>Register</h1>
         </div>
-        <form action="#" th:action="@{/register}" th:object="${user}" method="post" id="registerForm">
+        <form th:action="@{/registerUser}" th:object="${user}" method="post" id="registerForm">
             <div class="flex-container">
                 <div class="firstCol">
                     <div th:class="'formControl ' + ${nameResult}">
@@ -59,7 +59,7 @@
             </div>
             <div th:class="'formControl ' + ${passwordResult}">
                 <label for="password">Password</label>
-                <input th:field="*{passwd}"  type="password" id="password" class="userInput" placeholder="Enter your password">
+                <input th:field="*{passwd}" type="password" id="password" class="userInput" placeholder="Enter your password">
                 <i class="fas fa-check-circle check"></i>
                 <i class="fas fa-exclamation-circle cross"></i>
                 <small class="errorMessage" th:text="${passwordErrorMessage}"></small>

@@ -9,4 +9,6 @@ public interface KoeficientServiceInterface {
     void delete(KoeficientEntity koeficientEntity);
     List<KoeficientEntity> findAllKoefsInOrder(String name);
     void deleteAllByName(String name);
+
+    void saveAll(List<KoeficientEntity> koefs);
 }
