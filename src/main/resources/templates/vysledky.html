@@ -22,18 +22,18 @@
 
 
 <main class="flex flex-grow">
-    <div class="flex flex-grow flex-col md:flex-row mt-16">
+    <div class="flex w-full flex-grow flex-col md:flex-row mt-8">
         <nav aria-label="alternative nav" id="nav">
         </nav>
         <section class="flex flex-grow w-auto">
-            <div id="main" class="main-content bg-blue-100 flex-1 md:mt-2 pb-24 md:pb-5">
+            <div id="main" class="main-content bg-blue-100 w-full flex-1 md:mt-2 pb-24 md:pb-5">
 
                 <div class="bg-gray-800">
                     <div class="rounded-tl-3xl bg-gradient-to-r from-green-900 to-gray-800 p-4 shadow text-4xl text-white">
                         <h1 class="font-bold pl-2" th:text="'Výsledky - ' + ${tipping.name}"></h1>
                     </div>
                 </div>
-                <div class="block p-6 rounded-lg shadow-lg bg-white w-[80%] mx-auto mt-12 flex-row flex-grow">
+                <div class="block p-3 md:p-6 rounded-lg shadow-lg bg-white w-[95%] md:w-[80%] mx-auto mt-12 flex-row flex-grow">
                     <div class="flex-row w-full px-4 mt-16">
                         <div id="platnyTurnaj" th:if="${bean.jePlatny}">
                             <div th:class="'flex-row w-full flex-grow items-center justify-center bg-' + ${bean.getFarbaPozadia()} + '-200 py-10'" id="odstavecPrePrvyKrat"

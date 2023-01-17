@@ -43,6 +43,9 @@ public class SpravcaPodujatiBean {
                 tippingAllEntity.setFourth_number(this.tipping.getFourth_number());
                 tippingAllEntity.setFifth_number(this.tipping.getFifth_number());
             }
+            if (tippingAllEntity.getEnd() == null) {
+                tippingAllEntity.setEndDateTime(this.tipping.getEndDateTime());
+            }
             this.koeficientService.deleteAllByName(tippingAllEntity.getName());
         }
         tippingAllEntity.setDruh(this.druh);
@@ -144,7 +147,7 @@ public class SpravcaPodujatiBean {
     }
 
     public boolean disableZaciatok() {
-        return this.operacia == Operacia.EDIT && !this.tipping.getTips().isEmpty();
+        return this.operacia == Operacia.EDIT && (this.tipping.getStavUdalosti() == StavUdalosti.SKONCENY || !this.tipping.getTips().isEmpty());
     }
 
     public boolean disableKoniec() {

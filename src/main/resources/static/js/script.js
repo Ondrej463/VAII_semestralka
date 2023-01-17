@@ -250,7 +250,7 @@ function addKoeficientToTemplate(odV, doV, koefV, disable) {
     newDiv.className = "flex block my-4";
     newDiv.id = "content" + koeficients.length;
     let nazvy = ["od", "do", "koef."];
-    let rozmery = [9, 9, 14];
+    let rozmery = [11, 11, 14];
     let hodnoty = [odV, doV, koefV];
     for (var i = 0; i < 3; i++) {
         var input = document.createElement("input");

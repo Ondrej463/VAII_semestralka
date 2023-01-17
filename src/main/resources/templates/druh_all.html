@@ -24,14 +24,14 @@
     <nav aria-label="alternative nav" id="nav">
     </nav>
     <section class="flex w-full">
-      <div id="main" class="main-content bg-blue-100 flex-1 md:mt-2 pb-24 md:pb-5">
+      <div id="main" class="main-content bg-blue-100 flex-1 md:mt-2 pb-12 md:pb-24 md:pb-5">
         <div class="bg-gray-800">
           <div class="rounded-tl-3xl bg-gradient-to-r from-green-900 to-gray-800 p-4 shadow text-4xl text-white">
             <h1 class="font-bold pl-2">Druhy</h1>
           </div>
         </div>
-        <div class="block p-6 rounded-lg shadow-lg bg-white w-2/3 mx-auto mt-28 p-10">
-          <div class="w-1/2 flex h-20 flex-initial">
+        <div class="block p-6 rounded-lg shadow-lg bg-white w-[95%] md:w-2/3 mx-auto mt-10 md:mt-28 p-5 md:p-10">
+          <div class="w-full md:w-1/2 flex h-30 md:h-20 flex-initial">
             <div class="w-1/2">
               <label for="vyberDruh" class="form-label text-gray-700">Druh</label>
               <select class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-gray-500 bg-white bg-clip-padding bg-no-repeat
@@ -45,7 +45,7 @@
               <a th:href="@{/novyDruh}">
                 <button type="submit" class="px-6 py-2.5 bg-red-800 text-white font-medium text-xs leading-tight
                             uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg
-                                focus:outline-none focus:ring-0 active:bg-red-700 active:shadow-lg transition duration-150 ease-in-out">
+                            mt-5 md:mt-0 focus:outline-none focus:ring-0 active:bg-red-700 active:shadow-lg transition duration-150 ease-in-out">
                   Nový
                 </button>
               </a>
@@ -66,7 +66,7 @@
               </div>
             </div>
             <div class="w-full flex justify-between">
-              <div class="w-1/2">
+              <div class="w-1/2 mt-6 md:mt-0">
                 <label for="koniec" class="form-label text-gray-700">Koniec</label>
                 <input disabled class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-gray-500 bg-white bg-clip-padding bg-no-repeat
                                border border-solid border-gray-300 rounded transition ease-in-out focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"

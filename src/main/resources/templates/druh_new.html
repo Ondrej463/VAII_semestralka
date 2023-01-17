@@ -32,8 +32,8 @@
             <h1 class="font-bold pl-2">Nový druh</h1>
           </div>
         </div>
-        <div class="block p-6 rounded-lg shadow-lg bg-white w-2/3 mx-auto mt-32">
-          <div class="w-2/3 mx-auto">
+        <div class="block p-3 md:p-6 rounded-lg shadow-lg bg-white w-[95%] md:w-2/3 mx-auto mt-10 md:mt-32">
+          <div class="w-full md:w-2/3 mx-auto">
             <form method="post" th:action="@{/saveDruh}" th:object="${newDruh}" id="newDruhForm">
               <div th:class="'formControl ' + ${nazovClass}">
                 <label for="name" class="form-label inline-block mb-2 text-gray-700">Názov</label>
@@ -43,8 +43,8 @@
                 <i class="fas fa-exclamation-circle cross spracaPodujatiI"></i>
                 <small class="errorMessage" th:text="${nazovErrorMessage}" id="nazovErrorMessage"></small>
               </div>
-              <div class="flex justify-between">
-                <div class=" w-1/2 inline-block">
+              <div class="flex flex-col md:flex-row justify-between">
+                <div class="w-full md:w-1/2 inline-block">
                   <div class="formControl">
                     <label for="zaciatok" class="form-label inline-block mb-2 text-gray-700">Začiatok</label>
                     <select th:field="*{zaciatok}" class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-gray-500 bg-white bg-clip-padding bg-no-repeat
@@ -56,7 +56,7 @@
                     <small class="errorMessage" id="zaciatokErrorMessage"></small>
                   </div>
                 </div>
-                <div class="w-1/3">
+                <div class="w-full md:w-1/3">
                   <div class="formControl">
                     <label for="pocetCislic" class="form-label inline-block mb-2 text-gray-700">Počet číslic</label>
                     <input type="text" th:field="*{pocet_cislic}" class="form-control block  w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding
@@ -67,8 +67,8 @@
                   </div>
                 </div>
               </div>
-              <div class="flex justify-between">
-                <div class="flex-initial w-1/2 inline-block">
+              <div class="flex flex-col md:flex-row justify-between">
+                <div class="flex-initial w-full md:w-1/2 inline-block">
                   <div class="formControl">
                     <label for="koniec" class="form-label inline-block mb-2 text-gray-700">Koniec</label>
                     <select th:field="*{koniec}" class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-gray-500 bg-white bg-clip-padding bg-no-repeat
@@ -80,7 +80,7 @@
                     <small class="errorMessage" id="koniecErrorMessage"></small>
                   </div>
                 </div>
-                <div class="w-1/3">
+                <div class="w-full md:w-1/3">
                   <div class="formControl">
                     <label for="minPocetTipov" class="form-label inline-block mb-2 text-gray-700">Min počet tipov</label>
                     <input type="text" th:field="*{min_pocet_tipov}" class="form-control block px-3 w-full py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding

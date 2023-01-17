@@ -14,13 +14,14 @@
   <script th:src="@{js/script.js}"></script>
   <link rel="stylesheet" th:href="@{css/tailwind.style.build.css}">
   <link rel="stylesheet" th:href="@{css/style.css}">
+  <script src="../static/js/script.js"></script>
 </head>
 <body class="flex flex-col h-screen bg-gray-800 font-sans leading-normal tracking-normal overflow-x-hidden">
 <header id="header">
 </header>
 
 <!-- Modal -->
-<div class="modal fade fixed top-[20%] w-[30%] h-[70%] left-[35%] outline-none overflow-x-hidden hidden overflow-y-auto z-50"
+<div class="modal fade fixed top-[20%] w-[90%] md:w-[40%] h-[70%] left-[5%] md:left-[30%] outline-none overflow-x-hidden hidden overflow-y-auto z-50"
      id="modal" tabindex="-1" aria-labelledby="exampleModalLongLabel" aria-hidden="true">
   <div class="modal-dialog relative w-auto pointer-events-none">
     <div class="modal-content border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current">
@@ -81,7 +82,7 @@
             <h1 class="font-bold pl-2">Správca podujatí</h1>
           </div>
         </div>
-        <div class="block p-6 rounded-lg shadow-lg bg-white w-2/3 mx-auto mt-16">
+        <div class="block p-3 md:p-6 rounded-lg shadow-lg bg-white w-[95%] md:w-2/3 mx-auto mt-16">
           <form method="post" th:action="@{/save}" th:object="${tipping}" id="spravcaPodujatiForm">
             <div class="formControl">
               <label for="name" class="form-label inline-block mb-2 text-gray-700">Meno podujatia</label>
@@ -91,7 +92,7 @@
               <i class="fas fa-exclamation-circle cross spracaPodujatiI"></i>
               <small class="errorMessage"></small>
             </div>
-            <div class="w-1/3">
+            <div class="w-full">
               <div class="formControl">
                 <label for="selectDruh" class="form-label inline-block mb-2 text-gray-700">Druh</label>
                 <select th:disabled="${bean.disableDruh()}" th:field="*{druh}" id="selectDruh" class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat
@@ -122,7 +123,7 @@
                 <small class="errorMessage"></small>
               </div>
             </div>
-            <div class="mb-4 mt-4" id="divKoeficienty">
+            <div class="mb-8 mt-4" id="divKoeficienty">
               <button type="button"
                       class="px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded
                       shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none
@@ -131,31 +132,35 @@
               </button>
               <small class="errorMessage koefErrorMessage ml-2"></small>
             </div>
-            <div class="hidden" id="cisla">
-              <div class="formControl w-full mt-2">
+            <div class="hidden mt-2" id="cisla">
+              <div class="formControl w-full">
                 <label for="numbers" class="form-label mb-2 text-gray-700 inline-block">Vygenerované čísla</label>
-                <div class="flex block" id="numbers">
-                  <input th:disabled="${bean.disableCisla()}" type="text" th:field="*{first_number}" maxlength="1" id="prveCislo" class="flex-initial w-9 px-3 py-1.5 text-gray-700
-                    bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out mr-5
+                <div class="flex flex-wrap block" id="numbers">
+                  <div class="w-auto mr-8 mb-4">
+                    <input th:disabled="${bean.disableCisla()}" type="text" th:field="*{first_number}" maxlength="1" id="prveCislo" class="flex-initial w-9 px-3 py-1.5 text-gray-700
+                    bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out md:mr-5 mr-1
                       focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none">
-                  <input th:disabled="${bean.disableCisla()}" type="text" th:field="*{second_number}" maxlength="1" id="druheCislo" class="flex-initial w-9 px-3 py-1.5 text-gray-700
-                    bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out mr-5
+                    <input th:disabled="${bean.disableCisla()}" type="text" th:field="*{second_number}" maxlength="1" id="druheCislo" class="flex-initial w-9 px-3 py-1.5 text-gray-700
+                    bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out md:mr-5 mr-1
                       focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none">
-                  <input th:disabled="${bean.disableCisla()}" type="text" th:field="*{third_number}" maxlength="1" id="tretieCislo" class="flex-initial w-9 px-3 py-1.5 text-gray-700
-                    bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out mr-5
+                    <input th:disabled="${bean.disableCisla()}" type="text" th:field="*{third_number}" maxlength="1" id="tretieCislo" class="flex-initial w-9 px-3 py-1.5 text-gray-700
+                    bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out md:mr-5 mr-1
                       focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none">
-                  <input th:disabled="${bean.disableCisla()}" type="text" th:field="*{fourth_number}" maxlength="1" id="stvrteCislo" class="flex-initial w-9 px-3 py-1.5 text-gray-700
-                    bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out mr-5
+                    <input th:disabled="${bean.disableCisla()}" type="text" th:field="*{fourth_number}" maxlength="1" id="stvrteCislo" class="flex-initial w-9 px-3 py-1.5 text-gray-700
+                    bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out md:mr-5 mr-1
                       focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none">
-                  <input th:disabled="${bean.disableCisla()}" type="text" th:field="*{fifth_number}" maxlength="1" id="piateCislo" class="flex-initial w-9 px-3 py-1.5 text-gray-700
-                    bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out mr-5
+                    <input th:disabled="${bean.disableCisla()}" type="text" th:field="*{fifth_number}" maxlength="1" id="piateCislo" class="flex-initial w-9 px-3 py-1.5 text-gray-700
+                    bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out md:mr-5
                       focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none">
-                  <small class="errorMessage"></small>
-                  <button th:if="${!bean.disableCisla()}" type="submit" onclick="return generuj();" class="px-6 py-2.5 ml-16 bg-gray-500 text-white font-medium text-xs leading-tight
+                    <small class="errorMessage"></small>
+                  </div>
+                  <div class="mb-4">
+                    <button th:if="${!bean.disableCisla()}" type="submit" onclick="return generuj();" class="px-4 py-2.5 md:px-6 md:py-2.5 bg-gray-500 text-white font-medium text-xs leading-tight
                   uppercase rounded shadow-md hover:bg-gray-400 hover:shadow-lg focus:bg-gray-700 focus:shadow-lg
                     focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out">
-                    Generuj náhodne
-                  </button>
+                      Generuj náhodne
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>

@@ -75,14 +75,14 @@ function jeCislo(cislo) {
 }
 
 function setErrorFor(input, message) {
-    const formControl = input.parentElement;
+    const formControl = input.parentElement.parentElement;
     const small = formControl.querySelector('small');
     small.innerText = message;
     formControl.classList.add('error');
 }
 
 function setSuccessFor(input) {
-    const formControl = input.parentElement;
+    const formControl = input.parentElement.parentElement;
     const small = formControl.querySelector('small');
     small.innerText = '';
     formControl.classList.add('success');
