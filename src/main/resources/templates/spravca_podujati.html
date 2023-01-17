@@ -88,7 +88,7 @@
               <label for="name" class="form-label inline-block mb-2 text-gray-700">Meno podujatia</label>
               <input th:disabled="${bean.disableNazov()}" type="text" th:field="*{name}" class="form-control block  w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding
                   border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                     id="name" aria-describedby="emailHelp" placeholder="Enter name of the event">
+                     id="name" placeholder="Enter name of the event">
               <i class="fas fa-exclamation-circle cross spracaPodujatiI"></i>
               <small class="errorMessage"></small>
             </div>
@@ -134,7 +134,7 @@
             </div>
             <div class="hidden mt-2" id="cisla">
               <div class="formControl w-full">
-                <label for="numbers" class="form-label mb-2 text-gray-700 inline-block">Vygenerované čísla</label>
+                <label for="prveCislo" class="form-label mb-2 text-gray-700 inline-block">Vygenerované čísla</label>
                 <div class="flex flex-wrap block" id="numbers">
                   <div class="w-auto mr-8 mb-4">
                     <input th:disabled="${bean.disableCisla()}" type="text" th:field="*{first_number}" maxlength="1" id="prveCislo" class="flex-initial w-9 px-3 py-1.5 text-gray-700

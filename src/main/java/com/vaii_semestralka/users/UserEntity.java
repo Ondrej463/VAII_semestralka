@@ -20,7 +20,7 @@ public class UserEntity {
     @Getter @Setter private String passwd;
     @Getter @Setter private byte[] salt;
     @Getter @Setter private String adress;
-    @Getter @Setter private double credit;
+    @Setter private double credit;
 
     @OneToMany(mappedBy = "tipPrimaryKeys.userEntity", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @Getter private Set<TipEntity> tips;
@@ -28,6 +28,9 @@ public class UserEntity {
     @OneToMany(mappedBy = "tipPrimaryKey.userEntity", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @Getter private Set<VysledkyEntity> vysledky;
 
+    public double getCredit() {
+        return Math.round(this.credit - 100) / 100.0;
+    }
 
     public String getBorn_date() {
         return this.born_date == null ? null : DateTimeConverter.formatDate(this.born_date);
@@ -66,7 +69,7 @@ public class UserEntity {
     }
 
     public String getCreditScreenFormat() {
-        String creditS = this.credit + "";
+        String creditS = this.getCredit() + "";
         if (creditS.substring(creditS.indexOf('.') + 1).length() == 1) {
             return creditS.concat("0€");
         }

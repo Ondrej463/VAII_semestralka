@@ -42,13 +42,13 @@
             </div>
 
             <div class="w-1/2 flex items-center justify-end">
-              <a th:href="@{/novyDruh}">
+              <form th:action="@{/novyDruh}" method="get">
                 <button type="submit" class="px-6 py-2.5 bg-red-800 text-white font-medium text-xs leading-tight
                             uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg
                             mt-5 md:mt-0 focus:outline-none focus:ring-0 active:bg-red-700 active:shadow-lg transition duration-150 ease-in-out">
                   Nový
                 </button>
-              </a>
+              </form>
             </div>
           </div>
             <div class="w-full flex justify-between mb-6 mt-14">
@@ -76,7 +76,7 @@
                 <label for="minPocetTipov" class="form-label text-gray-700">Min počet tipov</label>
                 <input disabled type="text" class="form-control block px-3 w-full py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding
                   border border-solid border-gray-300 rounded transition ease-in-out focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                       id="minPocetTipov" aria-describedby="emailHelp">
+                       id="minPocetTipov">
               </div>
             </div>
           </div>

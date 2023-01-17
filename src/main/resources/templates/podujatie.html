@@ -20,11 +20,11 @@
 
 
 <main class="flex flex-grow">
-  <div class="flex flex-grow flex-col md:flex-row mt-16">
+  <div class="flex w-full flex-grow flex-col md:flex-row mt-16">
     <nav aria-label="alternative nav" id="nav">
     </nav>
-    <section class="flex flex-grow w-auto">
-      <div id="main" class="main-content bg-blue-100 flex-1 md:mt-2 pb-24 md:pb-5">
+    <section class="flex flex-grow w-full">
+      <div id="main" class="main-content w-full bg-blue-100 flex-1 md:mt-2 pb-24 md:pb-5">
 
         <div class="bg-gray-800">
           <div class="rounded-tl-3xl bg-gradient-to-r from-green-900 to-gray-800 p-4 shadow text-4xl text-white">
@@ -33,17 +33,18 @@
         </div>
 
         <div class="block p-3 md:p-6 rounded-lg shadow-lg bg-white w-[95%] md:w-2/3 mx-auto mt-16 flex-row">
-          <div class="flex justify-center items-center mb-16">
+          <div class="flex justify-center items-center mb-8 md:mb-16">
             <div>
-              <h1 th:text="${tipping.name}" class="text-5xl font-bold"></h1>
+              <h1 th:text="${tipping.name}" class="text-3xl md:text-5xl font-bold"></h1>
             </div>
             <div class="ml-8">
-              <a th:href="@{/tipuj}" th:disabled="${!bean.tipPovoleny()}" id="linkTipuj">
-                <button type="button" class="px-6 py-2.5 bg-green-700 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-green-800 hover:shadow-lg
+              <form method="get" th:action="@{/tipuj}" id="linkTipuj" th:disabled="${!bean.tipPovoleny()}">
+                <button type="submit" class="px-6 py-2.5 bg-green-700 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-green-800 hover:shadow-lg
                                       focus:bg-green-800 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-800 active:shadow-lg transition  duration-150  ease-in-out
                                       ml-1" id="tipujButton" th:disabled="${!bean.tipPovoleny()}">Tipuj
+
                 </button>
-              </a>
+              </form>
             </div>
           </div>
 

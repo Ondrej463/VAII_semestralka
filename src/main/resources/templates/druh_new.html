@@ -39,7 +39,7 @@
                 <label for="name" class="form-label inline-block mb-2 text-gray-700">Názov</label>
                 <input type="text" th:field="*{nazov}" class="form-control block  w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding
                   border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                       id="name" aria-describedby="emailHelp" placeholder="Enter name">
+                       id="name" placeholder="Enter name">
                 <i class="fas fa-exclamation-circle cross spracaPodujatiI"></i>
                 <small class="errorMessage" th:text="${nazovErrorMessage}" id="nazovErrorMessage"></small>
               </div>
@@ -61,7 +61,7 @@
                     <label for="pocetCislic" class="form-label inline-block mb-2 text-gray-700">Počet číslic</label>
                     <input type="text" th:field="*{pocet_cislic}" class="form-control block  w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding
                   border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                           id="pocetCislic" aria-describedby="emailHelp" placeholder="Enter number">
+                           id="pocetCislic" placeholder="Enter number">
                     <i class="fas fa-exclamation-circle cross spracaPodujatiI"></i>
                     <small class="errorMessage" id="pocetCislicErrorMessage"></small>
                   </div>
@@ -85,7 +85,7 @@
                     <label for="minPocetTipov" class="form-label inline-block mb-2 text-gray-700">Min počet tipov</label>
                     <input type="text" th:field="*{min_pocet_tipov}" class="form-control block px-3 w-full py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding
                   border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                           id="minPocetTipov" aria-describedby="emailHelp" placeholder="Enter number">
+                           id="minPocetTipov" placeholder="Enter number">
                     <i class="fas fa-exclamation-circle cross spracaPodujatiI"></i>
                     <small class="errorMessage" id="minPocetTipovErrorMessage"></small>
                   </div>
